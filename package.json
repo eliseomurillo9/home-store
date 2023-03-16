@@ -7,15 +7,26 @@
 		"start": "astro dev",
 		"build": "astro build",
 		"preview": "astro preview",
-		"astro": "astro"
+		"astro": "astro",
+		"server": "concurrently --kill-others \"watch 'pnpm run build' ./src\" \"nodemon index.js\""
 	},
 	"dependencies": {
+		"@astrojs/node": "^5.0.3",
+		"@astrojs/sitemap": "^1.0.1",
 		"@astrojs/tailwind": "^3.0.1",
 		"@astrojs/vue": "^2.0.1",
 		"@nanostores/vue": "^0.7.0",
-		"astro": "^2.0.14",
+		"astro": "^2.1.2",
+		"dotenv": "^16.0.3",
+		"express": "^4.18.2",
+		"mongoose": "^7.0.1",
 		"nanostores": "^0.7.4",
 		"tailwindcss": "^3.0.24",
 		"vue": "^3.2.30"
+	},
+	"devDependencies": {
+		"concurrently": "^7.6.0",
+		"nodemon": "^2.0.21",
+		"watch": "^1.0.2"
 	}
 }
