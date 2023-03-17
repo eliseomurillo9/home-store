@@ -2,7 +2,6 @@ import SubCategory from '../models/SubCategoryModel.js';
 
 const getSubCategory = async () => {
     const subCategories = await SubCategory.find();
-    console.log(subCategories);
     return subCategories;
 };
 

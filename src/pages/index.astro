@@ -1,6 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
+import categoriesService from '../services/categoriesService';
+import products from '../services/productsService';
+
+console.log(await products());
+
+const categories = await categoriesService.getCategories();
+const subCategories = await categoriesService.getSubCategories();
+console.log(categories);
+console.log(subCategories);
+
+
+
 ---
 
 <Layout title="Welcome ELiseo">
@@ -8,9 +20,12 @@ import Card from '../components/Card.astro';
 		<div >
 		</div>
 		<h1 class="text-blue">Hello <span class="text-gradient font-inter">Eliseo</span></h1>
-		<p class="instructions">
-			Im working
-		</p>
+		<!-- <p class="instructions">hello</p>
+		{ subCategories.map((category) => (
+			<p class="instructions">
+				 { category.name }
+			</p>
+		))} -->
 		<ul role="list" class="link-card-grid">
 			<Card
 				href="https://docs.astro.build/"

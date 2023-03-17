@@ -19,7 +19,7 @@ app.use('/products', productsRouter);
 app.use('/categories', categoryRouter);
 app.use('/subCategories', subCategoryRouter);
 app.use(express.static('dist/client/'));
-app.use('/store', ssrHandler);
+app.use(ssrHandler);
 
 
 app.listen(process.env.PORT, () => console.log(`Server started on port ${process.env.PORT}`));
