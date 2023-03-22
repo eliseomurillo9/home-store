@@ -7,4 +7,11 @@ const getProducts = async () => {
    return response
 }
 
-export default getProducts;
+const getProduct = async (id) => {
+   const data = await getData(`product/${id}`);
+   const response = await data.json();
+
+   return response
+}
+
+export { getProducts, getProduct };

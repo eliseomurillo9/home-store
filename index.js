@@ -15,7 +15,7 @@ dbConnection();
     // });
     
 app.use(json()); // for parsing application/json
-app.use('/products', productsRouter);
+app.use('/', productsRouter);
 app.use('/categories', categoryRouter);
 app.use('/subCategories', subCategoryRouter);
 app.use(express.static('dist/client/'));

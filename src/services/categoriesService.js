@@ -20,4 +20,4 @@ const getSubCategories = async () => {
 }
 
 
-export default { getCategories, getSubCategories };
+export { getCategories, getSubCategories };

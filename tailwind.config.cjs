@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 const defaultTheme = require('tailwindcss/defaultTheme');
 module.exports = {
-	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}', './node_modules/flowbite/**/*.js'],
 	theme: {
 		extend: {
 			colors: {
@@ -9,7 +9,7 @@ module.exports = {
 					'main': '#008DC3',
 					'dark': '#004E93' 
 				},
-				'white': '#F5F5FA',
+				'white': '#FFFDFA',
 				'gray': '#3D4849',
 				'gray-light': '#A1A1A1',
 				'black': '#101014'
@@ -19,5 +19,7 @@ module.exports = {
 			  }
 		},
 	},
-	plugins: [],
+	plugins: [
+        require('flowbite/plugin')
+    ],
 }

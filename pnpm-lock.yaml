@@ -5,11 +5,12 @@ specifiers:
   '@astrojs/sitemap': ^1.0.1
   '@astrojs/tailwind': ^3.0.1
   '@astrojs/vue': ^2.0.1
-  '@nanostores/vue': ^0.7.0
+  '@nanostores/vue': github:nanostores/vue
   astro: ^2.1.2
   concurrently: ^7.6.0
   dotenv: ^16.0.3
   express: ^4.18.2
+  flowbite: ^1.6.4
   lodash: ^4.17.21
   mongoose: ^7.0.1
   nanostores: ^0.7.4
@@ -23,10 +24,11 @@ dependencies:
   '@astrojs/sitemap': 1.0.1
   '@astrojs/tailwind': 3.0.1_5fkwwuzubt6borit3q7k7y2k74
   '@astrojs/vue': 2.0.1_2njaosjsygysoay2zulcsbqfcq
-  '@nanostores/vue': 0.7.0_5k5a5xuqaffd2s4dm6vugcn64i
+  '@nanostores/vue': github.com/nanostores/vue/0ebec323e5aff155efb9381ae0ab0bac92944f15_5k5a5xuqaffd2s4dm6vugcn64i
   astro: 2.1.2
   dotenv: 16.0.3
   express: 4.18.2
+  flowbite: 1.6.4
   lodash: 4.17.21
   mongoose: 7.0.1
   nanostores: 0.7.4
@@ -752,21 +754,6 @@ packages:
     resolution: {integrity: sha512-4/RWEeXDO6bocPONheFe6gX/oQdP/bEpv0oL4HqjPP5DCenBSt0mHgahppY49N0CpsaqffdwPq+TlX9CYOq2Dw==}
     dev: false
 
-  /@nanostores/vue/0.7.0_5k5a5xuqaffd2s4dm6vugcn64i:
-    resolution: {integrity: sha512-xQiiMlj0dFTAgjxXahPQQcGit7HpTo/lHKwAXg8yRyC6IkoB55tCsRBbAouMLSB4bdBoCgCmuKWcv7MRX1t9Zw==}
-    engines: {node: ^14.0.0 || ^16.0.0 || >=18.0.0}
-    peerDependencies:
-      '@vue/devtools-api': '>=6.1.4'
-      nanostores: '>=0.7.3'
-      vue: '>=3.2.30'
-    peerDependenciesMeta:
-      '@vue/devtools-api':
-        optional: true
-    dependencies:
-      nanostores: 0.7.4
-      vue: 3.2.47
-    dev: false
-
   /@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -798,6 +785,10 @@ packages:
       picocolors: 1.0.0
       tiny-glob: 0.2.9
       tslib: 2.5.0
+    dev: false
+
+  /@popperjs/core/2.11.6:
+    resolution: {integrity: sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==}
     dev: false
 
   /@proload/core/0.3.3:
@@ -1908,6 +1899,13 @@ packages:
       pkg-dir: 4.2.0
     dev: false
 
+  /flowbite/1.6.4:
+    resolution: {integrity: sha512-//kSaigwERCcE3udumadB3+xfOXeN/ZQzcub2qVCHuB7uscB4XIm3yP9R8zL0XsEOnYG2lnroq/dydQZbzvESw==}
+    dependencies:
+      '@popperjs/core': 2.11.6
+      mini-svg-data-uri: 1.4.4
+    dev: false
+
   /forwarded/0.2.0:
     resolution: {integrity: sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==}
     engines: {node: '>= 0.6'}
@@ -2835,6 +2833,11 @@ packages:
   /mimic-fn/4.0.0:
     resolution: {integrity: sha512-vqiC06CuhBTUdZH+RYl8sFrL096vA45Ok5ISO6sE/Mr1jRbGH4Csnhi8f3wKVl7x8mO4Au7Ir9D3Oyv1VYMFJw==}
     engines: {node: '>=12'}
+    dev: false
+
+  /mini-svg-data-uri/1.4.4:
+    resolution: {integrity: sha512-r9deDe9p5FJUPZAk3A59wGH7Ii9YrjjWw0jmw/liSbHl2CHiyXj6FcDXDu2K3TjVAXqiJdaw3xxwlZZr9E6nHg==}
+    hasBin: true
     dev: false
 
   /minimatch/3.1.2:
@@ -4372,4 +4375,22 @@ packages:
 
   /zwitch/2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
+    dev: false
+
+  github.com/nanostores/vue/0ebec323e5aff155efb9381ae0ab0bac92944f15_5k5a5xuqaffd2s4dm6vugcn64i:
+    resolution: {tarball: https://codeload.github.com/nanostores/vue/tar.gz/0ebec323e5aff155efb9381ae0ab0bac92944f15}
+    id: github.com/nanostores/vue/0ebec323e5aff155efb9381ae0ab0bac92944f15
+    name: '@nanostores/vue'
+    version: 0.7.0
+    engines: {node: ^14.0.0 || ^16.0.0 || >=18.0.0}
+    peerDependencies:
+      '@vue/devtools-api': '>=6.1.4'
+      nanostores: '>=0.7.3'
+      vue: '>=3.2.30'
+    peerDependenciesMeta:
+      '@vue/devtools-api':
+        optional: true
+    dependencies:
+      nanostores: 0.7.4
+      vue: 3.2.47
     dev: false

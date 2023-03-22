@@ -1,17 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
-import categoriesService from '../services/categoriesService';
-import products from '../services/productsService';
-
-console.log(await products());
-
-const categories = await categoriesService.getCategories();
-const subCategories = await categoriesService.getSubCategories();
-console.log(categories);
-console.log(subCategories);
-
-
+import getProduct from '../store/actions';
 
 ---
 

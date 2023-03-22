@@ -1,6 +1,5 @@
 import dotenv from 'dotenv';
 dotenv.config();
-console.log(`${process.env.BASE_URL}/products`);
 
 const getData =  async (route) => {
     try {
