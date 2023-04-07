@@ -4,7 +4,7 @@
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      class="h-8 animate-waving-hand"
+      class="h-7 animate-waving-hand"
     >
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
       <g

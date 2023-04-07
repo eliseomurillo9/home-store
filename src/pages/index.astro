@@ -1,10 +1,54 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import Carrousel from "../views/Carrousel.vue";
+import Poster from "../components/lading-page/Poster.vue";
+import image from "../assets/cat-and-dog-happy.jpg";
+import image2 from "../assets/How to furnish your home on a budget.webp";
+import SolidButton from "../components/buttons/SolidButton.vue";
 
-
+const categoriesSection = [
+  {
+    img: image,
+    alt: 'Perro y gato sentados',
+    message: "Mascotas",
+    isLink: true,
+    buttonMessage: "prueba",
+    href: "/Mascotas",
+  },
+  {
+    img: image2,
+    alt: "salon de hogar",
+    message: "Decoracion",
+    isLink: true,
+    buttonMessage: "prueba",
+    href: "/Decoracion",
+  },
+];
 ---
 
 <Layout title="Welcome ELiseo">
-	<main class="lg:px-20">
-	</main>
+  <main class="lg:px-20 pb-14 pt-32 md:pb-0 md:pt-40">
+    <Carrousel />
+    <div class="container m-auto">
+      <div class="sm:columns-3xs md:columns-2 gap-3 mt-6">
+        {
+          categoriesSection.map((category) => 
+		  <Poster
+              imgSrc={category.img}
+              imgAlt={category.alt}
+              class=" h-64 md:h-80"
+            >
+              <div class="absolute bottom-5 left-5 gap-4">
+                <h2 class="text-3xl font-semibold pb-2 text-white">{category.message}</h2>
+                <SolidButton
+                  isLink={category.isLink}
+                  message={category.buttonMessage}
+                />
+              </div>
+            </Poster>
+          )
+        }
+      </div>
+    </div>
+  </main>
 </Layout>

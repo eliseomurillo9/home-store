@@ -1,24 +1,24 @@
 <template>
   <div class="bg-white">
-    <div class="bg-blue-main flex h-9">
-    <span class="text-white m-auto"> {{ headerMessage }}</span>
+    <div class="bg-blue-main flex">
+    <span class="text-white text-xs m-auto py-1"> {{ headerMessage }}</span>
   </div>
     <div class="px-6 py-3 flex justify-between items-center">
       <img
         :src="logoImg"
         alt="logo en forma de casa con el nombre home store"
-        class="object-scale-down h-10"
+        class="object-scale-down h-9"
       />
       <MenuButton @click="isMenuOpen = !isMenuOpen"/>
     </div>
     <div class="h-px bg-gray-light"></div>
     <div class="flex justify-between py-2 px-6">
-      <div class="flex justify-center items-center">
+      <div class="flex justify-center items-center gap-2">
         <a
           v-for="(social, index) of socialInformation"
           :key="index"
           :href="social.href"
-          ><img :src="social.img" :alt="social.alt" class="h-7" />
+          ><img :src="social.img" :alt="social.alt" class="h-6" />
         </a>
       </div>
       <div class="flex justify-center items-center gap-4">
