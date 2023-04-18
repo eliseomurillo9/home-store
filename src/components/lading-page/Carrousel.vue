@@ -12,7 +12,7 @@
         <img
           :src="img.href"
           class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-          alt="1"
+          :alt="img.alt"
         />
       </div>
     </div>
@@ -86,9 +86,9 @@
 </template>
 
 <script>
-import img from "../assets/sub-buzz-9091-1523401984-1.jpg";
-import img2 from "../assets/kebab.jpg";
-import img3 from "../assets/maxresdefault.jpg";
+import img from "../../assets/sub-buzz-9091-1523401984-1.jpg";
+import img2 from "../../assets/kebab.jpg";
+import img3 from "../../assets/maxresdefault.jpg";
 export default {
   name: "HomePage",
   data() {
@@ -96,15 +96,15 @@ export default {
       carrouseImg: [
         {
           href: img,
-          alt: "Image",
+          alt: "Patrick image",
         },
         {
           href: img2,
-          alt: "Image",
+          alt: "Kebab image",
         },
         {
           href: img3,
-          alt: "Image",
+          alt: "PAtrick doc image",
         },
       ],
     };

@@ -1,15 +1,19 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Carrousel from "../views/Carrousel.vue";
-import Poster from "../components/lading-page/Poster.vue";
+import Carrousel from "../components/lading-page/Carrousel.vue";
+import Poster from "../components/shared/Poster.vue";
 import image from "../assets/cat-and-dog-happy.jpg";
 import image2 from "../assets/How to furnish your home on a budget.webp";
 import SolidButton from "../components/buttons/SolidButton.vue";
+import Card from "../components/shared/Card.vue";
+import product1 from "../assets/db36afb84a15c111f66d1083522fbe39042389ff.png";
+import product2 from "../assets/71-v6h8hwzL._AC_SX425_.jpg";
+import product3 from "../assets/61DNezja+cL._AC_SX425_.jpg";
 
 const categoriesSection = [
   {
     img: image,
-    alt: 'Perro y gato sentados',
+    alt: "Perro y gato sentados",
     message: "Mascotas",
     isLink: true,
     buttonMessage: "prueba",
@@ -24,31 +28,73 @@ const categoriesSection = [
     href: "/Decoracion",
   },
 ];
+
+const productsList = [
+  {
+    img: product1,
+    alt: "Perro y gato sentados",
+    href: "/id",
+  },
+  {
+    img: product2,
+    alt: "producto 2",
+    href: "/id",
+  },
+  {
+    img: product3,
+    alt: "Producto 3",
+    href: "/id",
+  },
+  {
+    img: product3,
+    alt: "Producto 3",
+    href: "/id",
+  },
+  {
+    img: product3,
+    alt: "Producto 3",
+    href: "/id",
+  },
+  {
+    img: product3,
+    alt: "Producto 3",
+    href: "/id",
+  }
+];
 ---
 
 <Layout title="Welcome ELiseo">
   <main class="lg:px-20 pb-14 pt-32 md:pb-0 md:pt-40">
     <Carrousel />
-    <div class="container m-auto">
+    <section class="container m-auto">
       <div class="sm:columns-3xs md:columns-2 gap-3 mt-6">
         {
-          categoriesSection.map((category) => 
-		  <Poster
+          categoriesSection.map((category) => (
+            <Poster
               imgSrc={category.img}
               imgAlt={category.alt}
               class=" h-64 md:h-80"
             >
               <div class="absolute bottom-5 left-5 gap-4">
-                <h2 class="text-3xl font-semibold pb-2 text-white">{category.message}</h2>
+                <h2 class="text-3xl font-semibold pb-2 text-white">
+                  {category.message}
+                </h2>
                 <SolidButton
                   isLink={category.isLink}
                   message={category.buttonMessage}
                 />
               </div>
             </Poster>
-          )
+          ))
         }
       </div>
-    </div>
+    </section>
+    <section class="flex justify-center gap-7">
+      {
+        productsList.map((product) =>
+        <Card product={product} class="py-2"/>
+        )
+      }
+    </section>
   </main>
 </Layout>

@@ -1,6 +1,6 @@
 <template>
   <div class="relative">
-    <slot></slot>
+    <slot />
       <img class="h-full w-full rounded object-cover" :src="imgSrc" :alt="imgAlt" />
   </div>
 </template>
