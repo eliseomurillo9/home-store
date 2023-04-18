@@ -11,13 +11,18 @@ let productSchema = new Schema({
     },
     price: {
         type: String,
-        required: true
+        required: false
     },
     category: {
         type: ObjectId,
         ref: 'Category'
         
     },
+    img:
+    {
+        type: String,
+        required: true
+    }
 })
 
 export default productSchema;
