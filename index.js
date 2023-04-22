@@ -3,7 +3,7 @@ import productsRouter from "./api/routes/productsRoutes.js";
 import dbConnection from "./api/db/index.js";
 import categoryRouter from "./api/routes/categoryRoutes.js";
 import subCategoryRouter from "./api/routes/subCategoryRoutes.js";
-import carrouselRouter from "./api/backoffice/routes/carrouselRoutes.js";
+import contentManagerRoutes from './api/routes/cms/contentManagerRoutes.js'
 import { handler as ssrHandler } from "./dist/server/entry.mjs";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -23,11 +23,14 @@ app.get("/api/test", (req, res) => {
 app.use("/", productsRouter);
 app.use("/categories", categoryRouter);
 app.use("/subCategories", subCategoryRouter);
-app.use("/carrousel", carrouselRouter);
 
 app.use(express.static("dist/client/"));
 app.use("/uploads", express.static("uploads"));
 app.use(ssrHandler);
+
+app.use("/admin/cms", contentManagerRoutes);
+
+
 
 app.listen(PORT, () =>
   console.log(`Server started on port ${process.env.PORT}`)
