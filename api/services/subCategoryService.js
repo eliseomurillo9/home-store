@@ -6,14 +6,9 @@ const getSubCategory = async () => {
 };
 
 const postSubCategory = async (subCategoryInfo) => {
-    try {
         const subCategory = new SubCategory(subCategoryInfo);
-        await subCategory.save()
-    
-        return subCategoryInfo;
-    } catch(error) {
-        console.log(error);
-    }
+        await subCategory.save();
+        return subCategory;
 };
 
 export default { getSubCategory, postSubCategory };

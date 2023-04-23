@@ -14,7 +14,7 @@ const postProduct = async (productInfo) => {
   const product = new Product(productInfo);
   await product.save();
 
-  return productInfo;
+  return product;
 };
 
 export default { getProducts, getProduct, postProduct };

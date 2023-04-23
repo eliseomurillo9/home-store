@@ -1,12 +1,8 @@
 import contentService from '../../services/cms/contentService.js';
 
-const getContent = async (req, res, next) => {
-    try {
-        const getContentType = await contentService.getContentTypeData(req.params);
-        return res.status(200).json(getContentType);
-    } catch (error) {
-        next(error);
-    }
+const getContent = async (req, res) => {
+    const getContentTypeInfo = await contentService.getContentTypeData(req.params);
+    if (getContentTypeInfo) return res.status(200).json(getContentTypeInfo); else return res.status(404).send('Content not found');
 };
 
 const postContent = async (req, res, next) => {
