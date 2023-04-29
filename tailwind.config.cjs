@@ -17,6 +17,7 @@ module.exports = {
         gray: "#3D4849",
         "gray-light": "#A1A1A1",
         black: "#101014",
+        current: 'currentColor'
       },
       fontFamily: {
         inter: ["Inter", ...defaultTheme.fontFamily.sans],
@@ -38,7 +39,11 @@ module.exports = {
       },
       spacing: {
         '128': '32rem',
-      }
+      },
+      maxWidth: {
+        '208': '13rem',
+        '176': '11rem',
+      },
     },
   },
   plugins: [require("flowbite/plugin")],
