@@ -12,6 +12,7 @@ import product3 from "../assets/61DNezja+cL._AC_SX425_.jpg";
 import CategoryCard from "../components/shared/CategoryCard.vue";
 import imageCat from "../assets/KINGSEVEN-lunettes-De-soleil-en-bois-naturel-pour-hommes-polaris-es-la-mode-originales-Oculos-De.jpg_Q90.jpg_.webp";
 
+
 const categoriesSection = [
   {
     img: image,
@@ -32,6 +33,7 @@ const categoriesSection = [
 ];
 
 const categoryPoster ={
+  id: 1,
     img: image,
     alt: "Perro y gato sentados",
     message: "Mascotas",
@@ -41,6 +43,7 @@ const categoryPoster ={
   };
 const productsList = [
   {
+    id: 2,
     img: product1,
     alt: "Perro y gato sentados",
     title: "Toalla",
@@ -48,6 +51,7 @@ const productsList = [
     href: "/id",
   },
   {
+    id: 3,
     img: product2,
     alt: "producto 2",
     title: "Nose",
@@ -55,6 +59,7 @@ const productsList = [
     href: "/id",
   },
   {
+    id: 4,
     img: product3,
     alt: "Producto 3",
     title: "Toalla",
@@ -62,6 +67,7 @@ const productsList = [
     href: "/id",
   },
   {
+    id:5,
     img: product3,
     alt: "Producto 3",
     title: "Toalla",
@@ -69,10 +75,12 @@ const productsList = [
     href: "/id",
   }
 ];
+
+
 ---
 
 <Layout title="Welcome ELiseo">
-  <main class="lg:px-20 pb-14 pt-32 md:pb-0 md:pt-28">
+  <div>
     <Carrousel />
     <section class="container m-auto">
       <div class="sm:columns-3xs md:columns-2 gap-5 mt-6 pb-2">
@@ -103,7 +111,7 @@ const productsList = [
      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 justify-between pt-2">
       {
         productsList.map((product) =>
-        <Card product={product} class="m-auto"/>
+        <Card product={product} class="m-auto" client:load/>
         )
       }
      </div>
@@ -138,5 +146,5 @@ const productsList = [
         <CategoryCard img={imageCat} class="m-auto"/>
       </div>
     </section>
-  </main>
+  </div>
 </Layout>

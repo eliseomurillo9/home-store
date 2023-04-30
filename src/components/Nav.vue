@@ -77,6 +77,7 @@
       </div>
       <div class="flex gap-4 justify-center items-center">
         <a href="">
+          <h2>{{ Object.values($cartItems).length}}</h2>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-5 text-gray hover:text-blue-500 fill-current transition ease-in-out text-sm"
@@ -89,6 +90,7 @@
           </svg>
         </a>
         <a href="/carrito">
+          
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -110,8 +112,11 @@
 import logo from "../assets/home-store-black-200.png";
 import socialNetworks from "../store/social";
 import { useStore } from "@nanostores/vue";
+import { cartItems } from '../store/cartStore';
+
+
 export default {
-  name: "TheFieldsGenerator",
+  name: "Nav",
   props: {
     headerMessage: {
       type: String,
@@ -134,6 +139,22 @@ export default {
     socialInformation() {
       return useStore(socialNetworks).value;
     },
+    cartItemsQuantity() {
+      return useStore(cartItems);
+    }
+  },
+  mounted() {
+    const $cartItems = useStore(cartItems);
+    console.log($cartItems);
   },
 };
+</script>
+
+<script setup>
+import { useStore } from "@nanostores/vue";
+import { cartItems } from '../store/cartStore';
+
+const $cartItems = useStore(cartItems)
+console.log('----CART', $cartItems);
+
 </script>

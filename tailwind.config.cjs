@@ -14,10 +14,12 @@ module.exports = {
          '600': "#015CAC"
         },
         white: "#FFFDFA",
+        'white-dark': '#F5F5F5',
         gray: "#3D4849",
         "gray-light": "#A1A1A1",
         black: "#101014",
-        current: 'currentColor'
+        current: 'currentColor',
+        green: '#008000'
       },
       fontFamily: {
         inter: ["Inter", ...defaultTheme.fontFamily.sans],
@@ -44,6 +46,9 @@ module.exports = {
         '208': '13rem',
         '176': '11rem',
       },
+      padding: {
+        '112': '8rem',
+      }
     },
   },
   plugins: [require("flowbite/plugin")],
