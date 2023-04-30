@@ -1,10 +1,10 @@
 <template>
-  <nav class="bg-white flex justify-between p-4 sm:px-10 fixed bottom-0 w-full">
+  <nav class="bg-white flex justify-between p-3 px-11 fixed bottom-0 w-full">
       <svg
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        class="h-8"
+        class="h-6"
       >
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g
@@ -22,7 +22,7 @@
         </g>
       </svg>
     <a href="">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-8">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-6">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g
           id="SVGRepo_tracerCarrier"
@@ -45,7 +45,7 @@
     </a>
     <a href="">
       <svg
-        class="h-8"
+        class="h-6"
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,7 @@
     </a>
     <a href="">
       <svg
-        class="h-7"
+        class="h-5"
         viewBox="0 0 20 20"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
