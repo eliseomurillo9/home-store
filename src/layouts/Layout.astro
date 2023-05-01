@@ -33,7 +33,7 @@ const { title } = Astro.props;
   <body class="font-inter">
     <header>
       <div class="hidden md:block fixed z-10 w-full">
-        <Nav headerMessage={headerMessage} phoneNumber="+503 2519-3570" categories={categoriesList} client:load />
+        <Nav headerMessage={headerMessage} phoneNumber="+503 2519-3570" categories={categoriesList}  />
       </div>
       <div class="md:hidden fixed w-full z-10">
         <NavMobile categories={categoriesList} menuToggle={isMenuOpen} headerMessage={headerMessage} client:load />

@@ -77,10 +77,9 @@
       </div>
       <div class="flex gap-4 justify-center items-center">
         <a href="">
-          <h2>{{ Object.values($cartItems).length}}</h2>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-5 text-gray hover:text-blue-500 fill-current transition ease-in-out text-sm"
+            class="h-6 text-gray hover:text-blue-500 fill-current transition ease-in-out text-sm"
             viewBox="0 0 20 20"
           >
             <path
@@ -89,13 +88,13 @@
             />
           </svg>
         </a>
-        <a href="/carrito">
-          
+        <a href="/carrito" class="relative">
+          <h2 class="absolute bg-blue-main rounded-full text-2xs px-0.5">{{ Object.values($cartItems).length}}</h2>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            class="h-6 text-gray hover:text-blue-500 fill-current transition ease-in-out text-sm"
+            class="h-7 text-gray hover:text-blue-500 fill-current transition ease-in-out text-sm"
           >
             <path
               d="M2 2a1 1 0 0 0 0 2h.472a1 1 0 0 1 .965.737l.416 1.526L6 14.133V16c0 .694.235 1.332.63 1.84A2.5 2.5 0 1 0 10.95 19h3.1a2.5 2.5 0 1 0 4.771-.43A1 1 0 0 0 18 17H9.001a1 1 0 0 1-1-1v-1h10.236a2 2 0 0 0 1.93-1.474l1.635-6A2 2 0 0 0 19.87 5H5.582l-.215-.79A3 3 0 0 0 2.472 2H2Zm14.5 17a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1Zm1.736-6H7.764L6.127 7h13.744l-1.635 6ZM8.5 19a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1Z"
@@ -154,7 +153,6 @@ export default {
 import { useStore } from "@nanostores/vue";
 import { cartItems } from '../store/cartStore';
 
-const $cartItems = useStore(cartItems)
-console.log('----CART', $cartItems);
+const $cartItems = useStore(cartItems);
 
 </script>

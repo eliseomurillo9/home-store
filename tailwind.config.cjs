@@ -24,6 +24,11 @@ module.exports = {
       fontFamily: {
         inter: ["Inter", ...defaultTheme.fontFamily.sans],
       },
+      fontSize: {
+        '2xs': ['0.70rem', {
+          lineHeight: '0.75rem',
+        }],
+      },
       keyframes: {
         wave: {
           "0%": { transform: "rotate(0.0deg)" },
