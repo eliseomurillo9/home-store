@@ -3,19 +3,19 @@
     <div
       v-for="(article, i) in articles"
       :key="article.id"
-      class="bg-white-dark w-full max-w-2xl flex gap-4 py-4 pl-4 rounded-xl"
+      class="bg-white-dark flex gap-4 p-4 md:pr-14 rounded-xl"
     >
-      <figure>
-        <img :src="article.img" alt="" class="object-fit w-28 rounded" />
+      <figure class="w-28 md:w-32">
+        <img :src="article.img" alt="" class=" rounded" />
       </figure>
-      <div class="flex flex-col">
+      <div class="flex flex-col text-lg">
         <h3>{{ article.title }}</h3>
         <span class="text-blue-dark text-lg font-semibold"
           >${{ article.price }}</span
         >
         <span class="text-xs text-green">En Stock</span>
-        <div class="flex gap-3 items-center">
-          <div class="custom-number-input w-32">
+        <div class="flex gap-7 items-center">
+          <div class="custom-number-input w-20 md:w-32">
             <div
               class="flex flex-row justify-center item h-5 w-full rounded relative bg-transparent mt-1 border border-gray/10"
             >

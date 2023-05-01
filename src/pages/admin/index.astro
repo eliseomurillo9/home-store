@@ -1,0 +1,15 @@
+---
+import { isLoggedIn } from '../../services/auth';
+
+const cookie = Astro.request.headers.get('cookie');
+
+// If the user is not logged in, redirect them to the login page
+if (!isLoggedIn(cookie)) {
+  return Astro.redirect('https://dev-ivwetbsasozkjxc7.us.auth0.com/authorize?client_id=oUOrFVYWzXFwbV8mWfZgc668GjkznHMk&scope=openid%20profile%20email&response_type=id_token&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fadmin&response_mode=form_post&nonce=6zo_HhwIiGxDh_7j46yuspL_Y0uq53NjvCdgD_XzRhc&state=eyJyZXR1cm5UbyI6Ii9hZG1pbi90b3RvIn0');
+}
+
+---
+
+<div>
+    hello admin
+</div>

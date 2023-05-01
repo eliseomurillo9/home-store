@@ -13,8 +13,16 @@
       </h2>
       <div class="flex justify-between mt-5">
         <p class="text-xl font-bold text-blue-main">€{{ product.price }}</p>
-        <button v-if="Object.values($cartItems).find((item) => item.id === product.id)">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="h-6 w-fit text-green fill-current">
+        <!-- <button
+          v-if="
+            Object.values($cartItems).find((item) => item.id === product.id)
+          "
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 32 32"
+            class="h-6 w-fit text-green fill-current"
+          >
             <path
               d="M-27 316.006c-1.645 0-3 1.355-3 3s1.355 3 3 3 3-1.355 3-3-1.355-3-3-3zm0 2c.564 0 1 .436 1 1 0 .564-.436 1-1 1-.564 0-1-.436-1-1 0-.564.436-1 1-1zM-13 316.006c-1.645 0-3 1.355-3 3s1.355 3 3 3 3-1.355 3-3-1.355-3-3-3zm0 2c.564 0 1 .436 1 1 0 .564-.436 1-1 1-.564 0-1-.436-1-1 0-.564.436-1 1-1zM-12 294.006c-3.302 0-6 2.698-6 6s2.698 6 6 6 6-2.698 6-6-2.698-6-6-6zm0 2c2.221 0 4 1.779 4 4 0 2.22-1.779 4-4 4s-4-1.78-4-4c0-2.221 1.779-4 4-4z"
               style="
@@ -55,8 +63,8 @@
               transform="translate(36 -292)"
             />
           </svg>
-        </button>
-        <button @click="addToCart(product)" v-else>
+        </button> -->
+        <button @click="addToCart(product)">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="64"
@@ -100,6 +108,9 @@
           </svg>
         </button>
       </div>
+    </div>
+    <div>
+      {{ Object.values($cartItems) }}
     </div>
   </div>
 </template>

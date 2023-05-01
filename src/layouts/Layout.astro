@@ -3,8 +3,6 @@ import Nav from '../components/Nav.vue';
 import NavMobile from '../components/NavMobile.vue';
 import BottomMobileBar from '../components/BottomMobileBar.vue';
 import { categories, isMenuOpen }  from '../store';
-
-
 const headerMessage = 'Envios en todo el pais';
 const categoriesList = await categories.get();
 export interface Props {
@@ -39,7 +37,7 @@ const { title } = Astro.props;
         <NavMobile categories={categoriesList} menuToggle={isMenuOpen} headerMessage={headerMessage} client:load />
       </div>
     </header>
-    <main class="pb-14 pt-32 md:pb-0 md:pt-112 lg:px-20">
+    <main class="pb-14 pt-32 md:pb-0 md:pt-112 lg:px-28">
       <slot />
     </main>
     <div class="md:hidden">

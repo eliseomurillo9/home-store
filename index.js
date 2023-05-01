@@ -5,11 +5,10 @@ import categoryRouter from "./api/routes/categoryRoutes.js";
 import subCategoryRouter from "./api/routes/subCategoryRoutes.js";
 import contentManagerRoutes from './api/routes/cms/contentManagerRoutes.js'
 import { handler as ssrHandler } from "./dist/server/entry.mjs";
-import autorizationConnect from 'express-openid-connect';
-const { auth, requiresAuth } = autorizationConnect
 import config from './api/auth/authConfig.js'
 import dotenv from "dotenv";
 import cors from "cors";
+import { isAuthorized } from "./api/auth/auth.js";
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -23,21 +22,16 @@ app.use(cors({
 app.get("/api/test", (req, res) => {
   res.send("Home store HELLOOOO");
 });
+app.use(express.static("dist/client/"));
 app.use("/", productsRouter);
 app.use("/categories", categoryRouter);
 app.use("/subCategories", subCategoryRouter);
 
-app.use(express.static("dist/client/"));
 app.use("/uploads", express.static("uploads"));
 app.use(ssrHandler);
 
-app.use(auth(config));
-app.get('/', (req, res) => {
-  res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
-});
-
-app.use("/admin/cms", requiresAuth(), contentManagerRoutes);
-
+app.use(isAuthorized);
+app.use("/admin/cms", contentManagerRoutes);
 
 
 app.listen(PORT, () =>

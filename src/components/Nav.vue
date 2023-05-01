@@ -4,11 +4,13 @@
   </div>
   <div class="bg-white">
     <div class="px-6 py-2 flex justify-between items-center">
-      <img
-        :src="logoImg"
-        alt="logo en forma de casa con el nombre home store"
-        class="object-scale-down h-11"
-      />
+      <a href="/">
+        <img
+          :src="logoImg"
+          alt="logo en forma de casa con el nombre home store"
+          class="object-scale-down h-12"
+        />
+      </a>
       <div class="flex gap-7 items-center">
         <div class="w-72 h-full">
           <form>
@@ -142,17 +144,14 @@ export default {
       return useStore(cartItems);
     }
   },
-  mounted() {
-    const $cartItems = useStore(cartItems);
-    console.log($cartItems);
-  },
 };
 </script>
 
 <script setup>
 import { useStore } from "@nanostores/vue";
 import { cartItems } from '../store/cartStore';
+import { getCart } from '../store/cartStore';
 
 const $cartItems = useStore(cartItems);
-
+getCart();
 </script>

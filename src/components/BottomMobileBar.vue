@@ -1,5 +1,6 @@
 <template>
   <nav class="bg-white flex justify-between p-3 px-11 fixed bottom-0 w-full">
+    <a href="/">
       <svg
         viewBox="0 0 24 24"
         fill="none"
@@ -21,7 +22,8 @@
           ></path>
         </g>
       </svg>
-    <a href="">
+    </a>
+    <a href="/">
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-6">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g
@@ -43,7 +45,7 @@
         </g>
       </svg>
     </a>
-    <a href="">
+    <a href="/carrito">
       <svg
         class="h-6"
         viewBox="0 0 24 24"

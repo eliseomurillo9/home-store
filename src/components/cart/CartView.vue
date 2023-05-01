@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-2">
+  <div class="pt-2 px-3">
     <div class="flex gap-3 items-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -16,9 +16,10 @@
       <h2 class="text-blue-dark text-3xl font-bold">Carrito</h2>
     </div>
     <div class="h-px bg-gray-light mt-1"></div>
-
-      <ListElement :articles="productsList" class="pt-10"/>
-
+    <div class="flex md:justify-between flex-col-reverse md:flex-row pt-4 md:pt-10 gap-2 m-full max-w-screen-xl mx-auto">
+      <ListElement :articles="productsList" />
+      <InvoiceContainer amountToPay="80.87"/>
+    </div>
   </div>
 </template>
 
@@ -26,13 +27,15 @@
 import product1 from "../../assets/db36afb84a15c111f66d1083522fbe39042389ff.png";
 import product2 from "../../assets/71-v6h8hwzL._AC_SX425_.jpg";
 import product3 from "../../assets/61DNezja+cL._AC_SX425_.jpg";
-import { useStore } from '@nanostores/vue'
-import { cartItems } from '../../store/cartStore'
+import { useStore } from "@nanostores/vue";
+import { cartItems } from "../../store/cartStore";
 import ListElement from "./ListElement.vue";
+import InvoiceContainer from "./InvoiceContainer.vue";
 export default {
   name: "cartView",
   components: {
     ListElement,
+    InvoiceContainer,
   },
   data() {
     return {
@@ -72,8 +75,8 @@ export default {
       ],
     };
   },
- mounted() {
-  console.log('CART STATE', Object.values(useStore(cartItems)));
- },
+  mounted() {
+    console.log("CART STATE", Object.values(useStore(cartItems)));
+  },
 };
 </script>
