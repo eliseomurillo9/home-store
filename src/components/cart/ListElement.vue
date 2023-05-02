@@ -30,7 +30,7 @@
                 type="number"
                 class="outline-none focus:outline-none text-center w-full bg-[#fffff] font-semibold text-md hover:text-black focus:text-black md:text-basecursor-default flex items-center text-gray-700 border-0"
                 name="custom-input-number"
-                :value="counter"
+                :value="article.quantity"
               />
               <button
                 data-action="increment"
@@ -71,7 +71,7 @@ export default {
   name: "ListElement",
   props: {
     articles: {
-      type: Array,
+      type: Object,
       required: true,
     },
   },

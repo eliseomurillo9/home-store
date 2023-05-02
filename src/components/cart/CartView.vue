@@ -16,9 +16,14 @@
       <h2 class="text-blue-dark text-3xl font-bold">Carrito</h2>
     </div>
     <div class="h-px bg-gray-light mt-1"></div>
-    <div class="flex md:justify-between flex-col-reverse md:flex-row pt-4 md:pt-10 gap-2 m-full max-w-screen-xl mx-auto">
-      <ListElement :articles="productsList" />
-      <InvoiceContainer amountToPay="80.87"/>
+    <div class="flex md:justify-between flex-col-reverse sm:flex-row pt-4 md:pt-10 gap-2 m-full max-w-screen-xl mx-auto" v-if="cartProducts.length">
+      <ListElement :articles="cartProducts" />
+      <InvoiceContainer :amountToPay="this.getAmountToPay"/>
+    </div>
+    <div v-else>
+      <h2>Tu carrito esta vacio
+
+      </h2>
     </div>
   </div>
 </template>
@@ -31,55 +36,31 @@ import { useStore } from "@nanostores/vue";
 import { cartItems } from "../../store/cartStore";
 import ListElement from "./ListElement.vue";
 import InvoiceContainer from "./InvoiceContainer.vue";
+import _ from 'lodash';
 export default {
   name: "cartView",
   components: {
     ListElement,
     InvoiceContainer,
   },
-  data() {
+  setup() {
+    const getCartItems = useStore(cartItems);
+
     return {
-      productsList: [
-        {
-          id: 2,
-          img: product1,
-          alt: "Perro y gato sentados",
-          title: "Toalla",
-          price: "13",
-          href: "/id",
-        },
-        {
-          id: 3,
-          img: product2,
-          alt: "producto 2",
-          title: "Nose",
-          price: "8",
-          href: "/id",
-        },
-        {
-          id: 4,
-          img: product3,
-          alt: "Producto 3",
-          title: "Toalla",
-          price: "10",
-          href: "/id",
-        },
-        {
-          id: 5,
-          img: product3,
-          alt: "Producto 3",
-          title: "Toalla",
-          price: "10",
-          href: "/id",
-        },
-      ],
-    };
+      getCartItems,
+    }
+  },
+  computed: {
+    cartProducts(){
+      return Object.values(this.getCartItems);
+    },
+    getAmountToPay() {
+     return _.sum(this.cartProducts.map(product => Number(product.price))).toFixed(2)
+    }
+  },
+  mounted() {
+    console.log(this.getAmountToPay);
   },
 };
 </script>
-<script setup>
-import { useStore } from "@nanostores/vue";
-import { cartItems } from "../../store/cartStore";
 
-const $cartItems = useStore(cartItems);
-</script>

@@ -113,6 +113,9 @@
 import logo from "../assets/home-store-black-200.png";
 import socialNetworks from "../store/social";
 import { useStore } from "@nanostores/vue";
+import { getCart } from '../store/cartStore';
+
+
 
 export default {
   name: "Nav",
@@ -138,6 +141,9 @@ export default {
     socialInformation() {
       return useStore(socialNetworks).value;
     },
+  },
+ async mounted() {
+    await getCart()
   },
 };
 </script>

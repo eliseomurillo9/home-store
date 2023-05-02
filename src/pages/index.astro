@@ -5,12 +5,9 @@ import Poster from "../components/shared/Poster.vue";
 import image from "../assets/cat-and-dog-happy.jpg";
 import image2 from "../assets/How to furnish your home on a budget.webp";
 import SolidButton from "../components/buttons/SolidButton.vue";
-import Card from "../components/shared/Card.vue";
-import product1 from "../assets/db36afb84a15c111f66d1083522fbe39042389ff.png";
-import product2 from "../assets/71-v6h8hwzL._AC_SX425_.jpg";
-import product3 from "../assets/61DNezja+cL._AC_SX425_.jpg";
 import CategoryCard from "../components/shared/CategoryCard.vue";
 import imageCat from "../assets/KINGSEVEN-lunettes-De-soleil-en-bois-naturel-pour-hommes-polaris-es-la-mode-originales-Oculos-De.jpg_Q90.jpg_.webp";
+import CardsContainer from "../components/shared/CardsContainer.vue";
 
 
 const categoriesSection = [
@@ -41,40 +38,6 @@ const categoryPoster ={
     buttonMessage: "prueba",
     href: "/Mascotas",
   };
-const productsList = [
-  {
-    id: 2,
-    img: product1,
-    alt: "Perro y gato sentados",
-    title: "Toalla",
-    price: '13',
-    href: "/id",
-  },
-  {
-    id: 3,
-    img: product2,
-    alt: "producto 2",
-    title: "Nose",
-    price: '8',
-    href: "/id",
-  },
-  {
-    id: 4,
-    img: product3,
-    alt: "Producto 3",
-    title: "Toalla",
-    price: '10',
-    href: "/id",
-  },
-  {
-    id:5,
-    img: product3,
-    alt: "Producto 3",
-    title: "Toalla",
-    price: '10',
-    href: "/id",
-  }
-];
 
 
 ---
@@ -109,11 +72,7 @@ const productsList = [
     <section class="px-4 pt-2">
       <h2 class="text-center text-xl font-semibold text-gray mb-4">Productos mas vendidos</h2>
      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 justify-between pt-2">
-      {
-        productsList.map((product) =>
-        <Card product={product} class="m-auto" client:load/>
-        )
-      }
+      <CardsContainer client:load/>
      </div>
     </section>
     <div class="h-px bg-gray-light my-9"></div>
