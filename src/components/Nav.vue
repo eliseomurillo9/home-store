@@ -113,8 +113,6 @@
 import logo from "../assets/home-store-black-200.png";
 import socialNetworks from "../store/social";
 import { useStore } from "@nanostores/vue";
-import { cartItems } from '../store/cartStore';
-
 
 export default {
   name: "Nav",
@@ -140,9 +138,6 @@ export default {
     socialInformation() {
       return useStore(socialNetworks).value;
     },
-    cartItemsQuantity() {
-      return useStore(cartItems);
-    }
   },
 };
 </script>
@@ -150,8 +145,7 @@ export default {
 <script setup>
 import { useStore } from "@nanostores/vue";
 import { cartItems } from '../store/cartStore';
-import { getCart } from '../store/cartStore';
 
 const $cartItems = useStore(cartItems);
-getCart();
+
 </script>

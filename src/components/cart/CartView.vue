@@ -75,8 +75,11 @@ export default {
       ],
     };
   },
-  mounted() {
-    console.log("CART STATE", Object.values(useStore(cartItems)));
-  },
 };
+</script>
+<script setup>
+import { useStore } from "@nanostores/vue";
+import { cartItems } from "../../store/cartStore";
+
+const $cartItems = useStore(cartItems);
 </script>

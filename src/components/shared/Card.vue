@@ -13,9 +13,9 @@
       </h2>
       <div class="flex justify-between mt-5">
         <p class="text-xl font-bold text-blue-main">€{{ product.price }}</p>
-        <!-- <button
+        <button
           v-if="
-            Object.values($cartItems).find((item) => item.id === product.id)
+            Object.values(cartProducts).find((item) => item.id === product.id)
           "
         >
           <svg
@@ -63,8 +63,8 @@
               transform="translate(36 -292)"
             />
           </svg>
-        </button> -->
-        <button @click="addToCart(product)">
+        </button>
+        <button @click="addToCart(product)" v-else>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="64"
@@ -109,16 +109,21 @@
         </button>
       </div>
     </div>
-    <div>
-      {{ Object.values($cartItems) }}
-    </div>
   </div>
 </template>
 <script>
 import OutlineButton from "../buttons/OutlineButton.vue";
 import { addCartItem } from "../../store/cartStore";
+import { useStore } from "@nanostores/vue";
+import { cartItems } from "../../store/cartStore";
 
 export default {
+  setup() {
+    const cartProducts = useStore(cartItems);
+    return {
+      cartProducts
+    };
+  },
   name: "Card",
   components: { OutlineButton },
   props: {
@@ -133,10 +138,4 @@ export default {
     },
   },
 };
-</script>
-<script setup>
-import { useStore } from "@nanostores/vue";
-import { cartItems } from "../../store/cartStore";
-
-const $cartItems = useStore(cartItems);
 </script>

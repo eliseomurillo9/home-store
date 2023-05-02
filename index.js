@@ -23,9 +23,9 @@ app.get("/api/test", (req, res) => {
   res.send("Home store HELLOOOO");
 });
 app.use(express.static("dist/client/"));
-app.use("/", productsRouter);
-app.use("/categories", categoryRouter);
-app.use("/subCategories", subCategoryRouter);
+app.use("api/", productsRouter);
+app.use("api/categories", categoryRouter);
+app.use("api/subCategories", subCategoryRouter);
 
 app.use("/uploads", express.static("uploads"));
 app.use(ssrHandler);
