@@ -18,7 +18,7 @@
     <div class="h-px bg-gray-light mt-1"></div>
     <div class="flex md:justify-between flex-col-reverse sm:flex-row pt-4 md:pt-10 gap-2 m-full max-w-screen-xl mx-auto" v-if="cartProducts.length">
       <ListElement :articles="cartProducts" />
-      <InvoiceContainer :amountToPay="this.getAmountToPay"/>
+      <InvoiceContainer :amountToPay="cartInvoice"/>
     </div>
     <div v-else>
       <h2>Tu carrito esta vacio
@@ -33,7 +33,7 @@ import product1 from "../../assets/db36afb84a15c111f66d1083522fbe39042389ff.png"
 import product2 from "../../assets/71-v6h8hwzL._AC_SX425_.jpg";
 import product3 from "../../assets/61DNezja+cL._AC_SX425_.jpg";
 import { useStore } from "@nanostores/vue";
-import { cartItems } from "../../store/cartStore";
+import { cartItems, cartInvoiceTotal } from "../../store/cartStore";
 import ListElement from "./ListElement.vue";
 import InvoiceContainer from "./InvoiceContainer.vue";
 import _ from 'lodash';
@@ -54,12 +54,9 @@ export default {
     cartProducts(){
       return Object.values(this.getCartItems);
     },
-    getAmountToPay() {
-     return _.sum(this.cartProducts.map(product => Number(product.price))).toFixed(2)
+    cartInvoice() {
+      return cartInvoiceTotal(this.cartProducts);
     }
-  },
-  mounted() {
-    console.log(this.getAmountToPay);
   },
 };
 </script>

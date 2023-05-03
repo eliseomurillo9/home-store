@@ -126,7 +126,7 @@ export default {
   },
   methods: {
     addToCart(product) {
-      addCartItem(this.product);
+      addCartItem(product);
     },
   },
 };

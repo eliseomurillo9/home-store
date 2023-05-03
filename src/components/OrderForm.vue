@@ -185,9 +185,14 @@
         <SolidButton message="Enviar Pedido y pagar" class="mx-auto" />
       </div>
       <aside
-        class="bg-white-dark overscroll-x-none overflow-y-auto h-96 md:h-128 rounded-lg flex flex-col items-center gap-9 drop-shadow-xl w-fit"
+        class="bg-white-dark overscroll-x-none overflow-y-auto h-96 md:h-128 rounded-lg flex flex-col items-center gap-4 drop-shadow-xl w-fit"
       >
-        <ListElement :articles="productsList" />
+      <div>
+
+        <h2 class="font-semibold pt-5 text-lg text-left">Tu pedido</h2>
+        <p class="text-xl">Subtotal: <span class="font-bold">${{ getTotalToPay }}</span></p>
+      </div>
+        <ListElement :articles="cartProducts" />
         <SolidButton message="Enviar Pedido y pagar" class="mx-auto" />
       </aside>
     </div>
@@ -197,6 +202,9 @@
 <script>
 import ListElement from "./cart/ListElement.vue";
 import SolidButton from "./buttons/SolidButton.vue";
+import { useStore } from "@nanostores/vue";
+import { cartItems } from "../store/cartStore";
+import { cartTotalInvoice } from '../store/cartStore' 
 import product1 from "../assets/db36afb84a15c111f66d1083522fbe39042389ff.png";
 import product2 from "../assets/71-v6h8hwzL._AC_SX425_.jpg";
 import product3 from "../assets/61DNezja+cL._AC_SX425_.jpg";
@@ -205,6 +213,13 @@ export default {
   components: {
     ListElement,
     SolidButton,
+  },
+  setup() {
+    const getCartItems = useStore(cartItems);
+    const getTotalToPay = useStore(cartTotalInvoice);
+    return {
+      getCartItems, getTotalToPay
+    }
   },
   data() {
     return {
@@ -238,6 +253,11 @@ export default {
         neighborhood: "",
       },
     };
+  },
+  computed: {
+    cartProducts(){
+      return Object.values(this.getCartItems);
+    },
   },
   mounted() {
     console.log('FORM', this.customerInfo);
