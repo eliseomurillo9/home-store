@@ -140,7 +140,7 @@ export default {
   methods: {
     toggleMenu() {
       this.isMenuOpen = true;
-    }
+    },
   },
 };
 </script>

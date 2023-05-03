@@ -182,20 +182,72 @@
             v-model="customerInfo.neighborhood"
           />
         </div>
+        <div class="flex gap-4 justify-center mb-6">
+          <div>
+            <label
+              for="state"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Departamento</label
+            >
+            <input
+              type="text"
+              id="state"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Flowbite"
+              required
+              v-model="customerInfo.state"
+            />
+          </div>
+          <div>
+            <label
+              for="city"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Municipio</label
+            >
+            <input
+              type="city"
+              id="company"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Flowbite"
+              required
+              v-model="customerInfo.city"
+            />
+          </div>
+        </div>
+        <div class="mb-6">
+          <label
+            for="neighborhood"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Colonia</label
+          >
+          <input
+            type="text"
+            id="neighborhood"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Flowbite"
+            required
+            v-model="customerInfo.neighborhood"
+          />
+        </div>
         <SolidButton message="Enviar Pedido y pagar" class="mx-auto" />
       </div>
       <aside
-        class="bg-white-dark overscroll-x-none overflow-y-auto h-96 md:h-128 rounded-lg flex flex-col items-center gap-4 drop-shadow-xl w-fit"
+        class="bg-inherit md:bg-white-dark overscroll-x-none overflow-y-auto md:h-128 rounded-lg flex flex-col items-center gap-4 drop-shadow-xl max-w-full overflow-x-hidden p-4"
       >
-      <div>
+        <div class="w-full">
+          <h2 class="font-semibold text-lg text-gray">Tu pedido</h2>
+          <div class="h-px bg-gray-light mt-1"></div>
 
-        <h2 class="font-semibold pt-5 text-lg text-left">Tu pedido</h2>
-        <p class="text-xl">Subtotal: <span class="font-bold">${{ getTotalToPay }}</span></p>
-      </div>
+          <p class="text-xl pt-1 mt-2">
+            Subtotal: <span class="font-bold">${{ cartInvoice }}</span>
+          </p>
+        </div>
         <ListElement :articles="cartProducts" />
-        <SolidButton message="Enviar Pedido y pagar" class="mx-auto" />
+        <SolidButton message="Enviar Pedido y pagar" class="mx-auto pt-3" :event="goToPayment" />
       </aside>
     </div>
+
+      <PaymentModal v-if="togglePaymentModal" class="m-auto"/>
   </div>
 </template>
 
@@ -203,44 +255,23 @@
 import ListElement from "./cart/ListElement.vue";
 import SolidButton from "./buttons/SolidButton.vue";
 import { useStore } from "@nanostores/vue";
-import { cartItems } from "../store/cartStore";
-import { cartTotalInvoice } from '../store/cartStore' 
-import product1 from "../assets/db36afb84a15c111f66d1083522fbe39042389ff.png";
-import product2 from "../assets/71-v6h8hwzL._AC_SX425_.jpg";
-import product3 from "../assets/61DNezja+cL._AC_SX425_.jpg";
+import { cartItems, cartInvoiceTotal } from "../store/cartStore";
+import PaymentModal from './PaymentModal.vue';
 export default {
   name: "OrderForm",
   components: {
     ListElement,
     SolidButton,
+    PaymentModal,
   },
   setup() {
     const getCartItems = useStore(cartItems);
-    const getTotalToPay = useStore(cartTotalInvoice);
     return {
-      getCartItems, getTotalToPay
-    }
+      getCartItems,
+    };
   },
   data() {
     return {
-      productsList: [
-        {
-          id: 2,
-          img: product1,
-          alt: "Perro y gato sentados",
-          title: "Toalla",
-          price: "13",
-          href: "/id",
-        },
-        {
-          id: 3,
-          img: product2,
-          alt: "producto 2",
-          title: "Nose",
-          price: "8",
-          href: "/id",
-        },
-      ],
       customerInfo: {
         country: "El Salvador",
         email: "",
@@ -252,15 +283,21 @@ export default {
         city: "",
         neighborhood: "",
       },
+      togglePaymentModal: true
     };
   },
   computed: {
-    cartProducts(){
+    cartProducts() {
       return Object.values(this.getCartItems);
     },
+    cartInvoice() {
+      return cartInvoiceTotal(this.cartProducts);
+    }
   },
-  mounted() {
-    console.log('FORM', this.customerInfo);
+  methods: {
+    goToPayment() {
+      this.togglePaymentModal = !this.togglePaymentModal
+    }
   },
 };
 </script>

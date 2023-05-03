@@ -21,10 +21,9 @@ export async function isAuthorized(req, res, next) {
         callback(null, signingKey);
       });
     }
-    var decoded = await jwt.verify(token, getKey, function (err, decoded) {
+    let decoded = await jwt.verify(token, getKey, function (err, decoded) {
       if (err) throw err;
 
-      console.log("DECODED IF ALL OK", err, decoded);
       if (!decoded.permissions?.includes("admin"))
         return res
           .status(403)
