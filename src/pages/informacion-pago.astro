@@ -1,9 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import OrderForm from "../components/OrderForm.vue";
+import {getElSalvadorRegionsField} from '../../api/payment/wompiService.js';
+
+const elSalvadorRegionsValues = await getElSalvadorRegionsField();
 ---
 <Layout title="Pedido">
     <div>
-        <OrderForm client:load/>
+        <OrderForm regionValues={elSalvadorRegionsValues} client:load/>
     </div>
 </Layout>

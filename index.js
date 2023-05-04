@@ -3,9 +3,9 @@ import productsRouter from "./api/routes/productsRoutes.js";
 import dbConnection from "./api/db/index.js";
 import categoryRouter from "./api/routes/categoryRoutes.js";
 import subCategoryRouter from "./api/routes/subCategoryRoutes.js";
+import orderRoutes from "./api/routes/orderRoutes.js";
 import contentManagerRoutes from './api/routes/cms/contentManagerRoutes.js'
 import { handler as ssrHandler } from "./dist/server/entry.mjs";
-import config from './api/auth/authConfig.js'
 import dotenv from "dotenv";
 import cors from "cors";
 import { isAuthorized } from "./api/auth/auth.js";
@@ -26,6 +26,7 @@ app.use(express.static("dist/client/"));
 app.use("api/", productsRouter);
 app.use("api/categories", categoryRouter);
 app.use("api/subCategories", subCategoryRouter);
+app.use("transaction/", orderRoutes);
 
 app.use("/uploads", express.static("uploads"));
 app.use(ssrHandler);

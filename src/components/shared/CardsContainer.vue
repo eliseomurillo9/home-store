@@ -29,7 +29,7 @@ export default {
           img: product1,
           alt: "Perro y gato sentados",
           title: "Toalla",
-          price: 13,
+          price: 0.10,
           href: "/id",
         },
         {
@@ -45,7 +45,7 @@ export default {
           img: product3,
           alt: "Producto 3",
           title: "Toalla",
-          price: 10,
+          price: 0.10,
           href: "/id",
         },
         {
@@ -53,7 +53,7 @@ export default {
           img: product3,
           alt: "Producto 3",
           title: "Toalla",
-          price: 10,
+          price: 0.10,
           href: "/id",
         },
       ],

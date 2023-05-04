@@ -12,7 +12,7 @@
         {{ product.title }}
       </h2>
       <div class="flex justify-between mt-5">
-        <p class="text-xl font-bold text-blue-main">€{{ product.price }}</p>
+        <p class="text-xl font-bold text-blue-main">€{{ product.price.toFixed(2) }}</p>
         <button v-if="isAddedToCart">
           <svg
             xmlns="http://www.w3.org/2000/svg"

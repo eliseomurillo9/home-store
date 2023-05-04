@@ -30,7 +30,7 @@
           id="disabled-input"
           aria-label="disabled input"
           class="mb-3 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-main focus:border-blue-main block w-full p-1.5 cursor-not-allowed"
-          value="El Salvador"
+          :value="regionValues.nombre"
           disabled
         />
         <div
@@ -137,66 +137,10 @@
         </div>
         <div class="flex gap-4 justify-center mb-6">
           <div>
-            <label
-              for="state"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Departamento</label
-            >
-            <input
-              type="text"
-              id="state"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Flowbite"
-              required
-              v-model="customerInfo.state"
-            />
-          </div>
-          <div>
-            <label
-              for="city"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Municipio</label
-            >
-            <input
-              type="city"
-              id="company"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Flowbite"
-              required
-              v-model="customerInfo.city"
-            />
-          </div>
-        </div>
-        <div class="mb-6">
-          <label
-            for="neighborhood"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Colonia</label
-          >
-          <input
-            type="text"
-            id="neighborhood"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Flowbite"
-            required
-            v-model="customerInfo.neighborhood"
-          />
-        </div>
-        <div class="flex gap-4 justify-center mb-6">
-          <div>
-            <label
-              for="state"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Departamento</label
-            >
-            <input
-              type="text"
-              id="state"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Flowbite"
-              required
-              v-model="customerInfo.state"
-            />
+            <label for="state-select">Departamento</label>
+            <select name="state" id="state-select" v-model="customerInfo.state">
+              <option v-for="(state, i) in regionValues.territorios" :key='state.id' :value="state.id">{{ state.nombre }}</option>
+            </select>
           </div>
           <div>
             <label
@@ -243,11 +187,15 @@
           </p>
         </div>
         <ListElement :articles="cartProducts" />
-        <SolidButton message="Enviar Pedido y pagar" class="mx-auto pt-3" :event="goToPayment" />
+        <SolidButton
+          message="Enviar Pedido y pagar"
+          class="mx-auto pt-3"
+          :event="goToPayment"
+        />
       </aside>
     </div>
 
-      <PaymentModal v-if="togglePaymentModal" class="m-auto"/>
+    <PaymentModal v-if="togglePaymentModal" class="m-auto" />
   </div>
 </template>
 
@@ -256,9 +204,16 @@ import ListElement from "./cart/ListElement.vue";
 import SolidButton from "./buttons/SolidButton.vue";
 import { useStore } from "@nanostores/vue";
 import { cartItems, cartInvoiceTotal } from "../store/cartStore";
-import PaymentModal from './PaymentModal.vue';
+import PaymentModal from "./PaymentModal.vue";
+// import { getCardRegions } from '../../api/services/paymentService'
 export default {
   name: "OrderForm",
+  props: {
+    regionValues: {
+      type: Object,
+      default: {},
+    }
+  },
   components: {
     ListElement,
     SolidButton,
@@ -283,7 +238,7 @@ export default {
         city: "",
         neighborhood: "",
       },
-      togglePaymentModal: true
+      togglePaymentModal: false,
     };
   },
   computed: {
@@ -292,12 +247,16 @@ export default {
     },
     cartInvoice() {
       return cartInvoiceTotal(this.cartProducts);
-    }
+    },
+  },
+  async mounted() {
+    console.log('REGIOS', this.customerInfo);
   },
   methods: {
     goToPayment() {
-      this.togglePaymentModal = !this.togglePaymentModal
-    }
+      this.togglePaymentModal = !this.togglePaymentModal;
+      console.log('custInof', this.customerInfo);
+    },
   },
 };
 </script>
