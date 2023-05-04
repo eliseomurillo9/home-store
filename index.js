@@ -23,10 +23,10 @@ app.get("/api/test", (req, res) => {
   res.send("Home store HELLOOOO");
 });
 app.use(express.static("dist/client/"));
-app.use("api/", productsRouter);
-app.use("api/categories", categoryRouter);
-app.use("api/subCategories", subCategoryRouter);
-app.use("transaction/", orderRoutes);
+app.use("/api/", productsRouter);
+app.use("/api/categories", categoryRouter);
+app.use("/api/subCategories", subCategoryRouter);
+app.use("/transaction/", orderRoutes);
 
 app.use("/uploads", express.static("uploads"));
 app.use(ssrHandler);

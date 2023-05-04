@@ -1,7 +1,7 @@
-import express from 'express';
-const router = express.Router();
+import {Router} from 'express';
+const router = Router();
 import orderController from '../controllers/orderController.js';
 
-router.route('/payment').post(orderController.paymentAuthorization());
+router.route('/payment').post(orderController.paymentAuthorization);
 
 export default router;

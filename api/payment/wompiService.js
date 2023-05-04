@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-const getWompiToken = async () => {
+export const getWompiToken = async () => {
   const url = process.env.WOMPI_TOKEN_ENDPOINT;
   const values = {
     grant_type: "client_credentials",
@@ -33,7 +33,6 @@ const getWompiToken = async () => {
 
 export const getElSalvadorRegionsField = async () => {
   const url = `${process.env.WOMPI_BASE_URL}api/Regiones`;
-  const elSalvadorId = "SV";
 
   try {
     const fetchFieldValues = await fetch(url, {
@@ -45,15 +44,43 @@ export const getElSalvadorRegionsField = async () => {
     });
 
     const res = await fetchFieldValues.json();
-    const getFieldValues = res.find((country) => country.id === elSalvadorId);
 
-    return getFieldValues;
+    return res;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const createTransaction = (body, token) => {
+export const createTransaction = async (paymentInfo, token) => {
   const url = `${process.env.WOMPI_BASE_URL}TransaccionCompra/3Ds`;
-  return body, token
-}
+  const infoToJson = JSON.stringify(paymentInfo);
+  const transactionBuilder = await fetch(url, {
+    method: 'POST',
+    headers: {
+      "Content-Type": 'application/json',
+      Authorization: token,
+    },
+    body: infoToJson,
+  });
+
+  const response = await transactionBuilder.json();
+  if (!response.idTransaccion) {
+    throw new Error(response.mensajes);
+  } else {
+    return response;
+  }
+};
+
+export const checkTransactionStatus = async (transactionId, token) => {
+  const url = `${process.env.WOMPI_BASE_URL}TransaccionCompra/${transactionId}`;
+
+  const shopStatus = await fetch(url, {
+    method: "GET",
+    headers: {
+      Accept: "*/*",
+      Authorization: token,
+    },
+  });
+
+  return shopStatus;
+};

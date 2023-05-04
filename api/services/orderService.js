@@ -1,8 +1,12 @@
-import {createTransaction} from '../payment/wompiService.js'
+import {createTransaction, getWompiToken, checkTransactionStatus} from '../payment/wompiService.js'
 
-const paymentRequest = () => {
-    const orderCreation = createTransaction('hola', '245323453254345345345');
-    console.log('WORKING');
+const paymentRequest = async (paymentInfo) => {
+    const token = await getWompiToken()
+    const orderCreation = await createTransaction(paymentInfo, token);
+
+    if (orderCreation.idTransaccion) {
+        checkTransactionStatus(orderCreation.idTransaccion, token)
+    }
     return orderCreation
 }
 

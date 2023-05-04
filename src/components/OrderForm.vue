@@ -137,10 +137,19 @@
         </div>
         <div class="flex gap-4 justify-center mb-6">
           <div>
-            <label for="state-select">Departamento</label>
-            <select name="state" id="state-select" v-model="customerInfo.state">
-              <option v-for="(state, i) in regionValues.territorios" :key='state.id' :value="state.id">{{ state.nombre }}</option>
-            </select>
+            <label
+              for="state"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Departamento</label
+            >
+            <input
+              type="state"
+              id="company"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Flowbite"
+              required
+              v-model="customerInfo.state"
+            />
           </div>
           <div>
             <label
@@ -195,7 +204,7 @@
       </aside>
     </div>
 
-    <PaymentModal v-if="togglePaymentModal" class="m-auto" />
+    <PaymentModal v-if="togglePaymentModal" class="m-auto" :region-field-values="regionValues" :totalToPay="cartInvoice"/>
   </div>
 </template>
 
@@ -210,8 +219,8 @@ export default {
   name: "OrderForm",
   props: {
     regionValues: {
-      type: Object,
-      default: {},
+      type: Array,
+      default: [],
     }
   },
   components: {

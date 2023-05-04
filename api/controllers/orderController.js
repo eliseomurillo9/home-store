@@ -1,13 +1,11 @@
 import paymentRequest from '../services/orderService.js';
 
-const paymentAuthorization =  (req, res, err) => {
-    if (err) throw err;
-
+const paymentAuthorization = async (req, res, next) => {
     try {
-        const payment = paymentRequest();
+        const payment = await paymentRequest(req.body);
         return res.status(200).json(payment)
     } catch (error) {
-       console.log(error);
+       next(error)
     }
     
 }
