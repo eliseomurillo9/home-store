@@ -53,7 +53,7 @@ export default {
           img: product3,
           alt: "Producto 3",
           title: "Toalla",
-          price: 0.10,
+          price: (0.10).fix(2),
           href: "/id",
         },
       ],

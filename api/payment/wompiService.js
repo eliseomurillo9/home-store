@@ -71,9 +71,9 @@ export const createTransaction = async (paymentInfo, token) => {
   }
 };
 
-export const checkTransactionStatus = async (transactionId, token) => {
+export const checkTransactionStatus = async (transactionId) => {
   const url = `${process.env.WOMPI_BASE_URL}TransaccionCompra/${transactionId}`;
-
+const token = await getWompiToken()
   const shopStatus = await fetch(url, {
     method: "GET",
     headers: {

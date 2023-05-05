@@ -204,7 +204,7 @@
       </aside>
     </div>
 
-    <PaymentModal v-if="togglePaymentModal" class="m-auto" :region-field-values="regionValues" :totalToPay="cartInvoice"/>
+    <PaymentModal v-if="togglePaymentModal" class="m-auto" :region-field-values="regionValues" :totalToPay="cartInvoice" :shippingInfotmation="customerInfo" />
   </div>
 </template>
 
@@ -264,7 +264,6 @@ export default {
   methods: {
     goToPayment() {
       this.togglePaymentModal = !this.togglePaymentModal;
-      console.log('custInof', this.customerInfo);
     },
   },
 };
