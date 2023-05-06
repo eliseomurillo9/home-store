@@ -1,0 +1,11 @@
+---
+import OrderValidation from '../components/orders/OrderValidation.vue'
+import Layout from '../layouts/Layout.astro'
+import {getElSalvadorRegionsField} from '../../api/payment/wompiService.js';
+
+const elSalvadorRegionsValues = await getElSalvadorRegionsField();
+---
+
+<Layout title="Validacion de pago">
+<OrderValidation regionValues={elSalvadorRegionsValues} client:visible />
+</Layout>

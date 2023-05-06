@@ -28,9 +28,9 @@
   </div>
 </template>
 <script>
-import successImg from "../assets/order-succes.webp";
-import OutlineButton from "./buttons/OutlineButton.vue";
-import SolidButton from "./buttons/SolidButton.vue";
+import successImg from "../../assets/order-succes.webp";
+import OutlineButton from "../buttons/OutlineButton.vue";
+import SolidButton from "../buttons/SolidButton.vue";
 export default {
   name: "OrderConfirmation",
   components: {

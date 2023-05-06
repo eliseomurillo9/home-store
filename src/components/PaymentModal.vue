@@ -1,10 +1,23 @@
 <template>
   <div
-    class="top-0 left-0 w-full h-full bg-black/50 z-50 m-auto fixed flex justify-center items-center p-3"
+    class="top-0 left-0 w-full h-full bg-black/50 z-50 m-auto fixed flex justify-center items-center p-3 drop-shadow-sm"
   >
     <div
-      class="bg-white-dark p-14 rounded-md drop-shadow-xl m-auto max-w-full max-h-full overflow-x-auto"
+      class="bg-white-dark p-14 rounded-md drop-shadow-xl m-auto max-w-full max-h-full overflow-x-auto relative"
     >
+      <button class="absolute right-10 top-7">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="#3D4849"
+          class="h-7"
+          viewBox="0 0 1024 1024"
+        >
+          <path
+            d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"
+          />
+        </svg>
+      </button>
+      <Loader v-if="isLoading" />
       <div class="flex">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -141,21 +154,20 @@
           />
         </div>
         <div class="mb-6">
-        <label
-          for="Name-in-cart"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          
-          >Apellido</label
-        >
-        <input
-          type="text"
-          id="name-in-cart"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Flowbite"
-          v-model="billingInfo.fullName.lastName"
-          required
-        />
-      </div>
+          <label
+            for="Name-in-cart"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Apellido</label
+          >
+          <input
+            type="text"
+            id="name-in-cart"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Flowbite"
+            v-model="billingInfo.fullName.lastName"
+            required
+          />
+        </div>
       </div>
       <div class="mb-6">
         <label
@@ -164,7 +176,7 @@
           >Numero de telefono</label
         >
         <input
-         type="tel"
+          type="tel"
           id="phone-number"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Flowbite"
@@ -239,7 +251,9 @@
 </template>
 <script>
 import SolidButton from "./buttons/SolidButton.vue";
-import { createPayment } from '../services/paymentService.js';
+import CloseButton from "./buttons/CloseButton.vue";
+import { createPayment } from "../services/paymentService.js";
+import Loader from "./shared/Loader.vue";
 
 export default {
   name: "PaymentModal",
@@ -259,36 +273,38 @@ export default {
   },
   components: {
     SolidButton,
+    Loader,
   },
   data() {
     return {
       billingInfo: {
-        address: '',
-        country: '',
-        state: '',
-        city: '',
-        zipcode: '',
-        phoneNumber: '',
-        cardNumber: '',
+        address: "",
+        country: "",
+        state: "",
+        city: "",
+        zipcode: "",
+        phoneNumber: "",
+        cardNumber: "",
         fullName: {
-          firstName: '',
-          lastName: '',
+          firstName: "",
+          lastName: "",
         },
         email: this.shippingInfotmation.email,
         expirationDate: {
-          month: '',
-          year: '',
+          month: "",
+          year: "",
         },
         charge: Number(this.totalToPay),
-        cvv: '',
+        cvv: "",
       },
-      
+
       useShippingAddress: false,
+      isLoading: false,
     };
   },
   methods: {
     async sendOrderPayment() {
-      console.log('BILLING', this.totalToPay, typeof this.totalToPay);
+      this.isLoading = true;
       const paymentAddress = this.useShippingAddress
         ? {
             ...this.shippingInfotmation,
@@ -301,11 +317,10 @@ export default {
       try {
         const payment = await createPayment(JSON.stringify(paymentAddress));
         if (payment.urlCompletarPago3Ds) {
-          window.location.href = payment.urlCompletarPago3Ds
+          window.location.href = payment.urlCompletarPago3Ds;
         }
       } catch (error) {
         console.log(error);
-        
       }
     },
   },

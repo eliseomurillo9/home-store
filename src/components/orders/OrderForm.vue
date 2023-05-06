@@ -18,7 +18,7 @@
       </h2>
     </div>
     <div class="h-px bg-gray-light mt-1"></div>
-    <div class="flex justify-center gap-10 pt-8 flex-wrap">
+    <div class="flex flex-col md:flex-row justify-center gap-10 pt-8">
       <div class="flex flex-col justify-center">
         <label
           for="country"
@@ -30,7 +30,7 @@
           id="disabled-input"
           aria-label="disabled input"
           class="mb-3 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-main focus:border-blue-main block w-full p-1.5 cursor-not-allowed"
-          :value="regionValues.nombre"
+          value="El Salvador"
           disabled
         />
         <div
@@ -182,7 +182,7 @@
             v-model="customerInfo.neighborhood"
           />
         </div>
-        <SolidButton message="Enviar Pedido y pagar" class="mx-auto" />
+        <SolidButton message="Validar mi pedido" class="mx-auto" />
       </div>
       <aside
         class="bg-inherit md:bg-white-dark overscroll-x-none overflow-y-auto md:h-128 rounded-lg flex flex-col items-center gap-4 drop-shadow-xl max-w-full overflow-x-hidden p-4"
@@ -195,38 +195,28 @@
             Subtotal: <span class="font-bold">${{ cartInvoice }}</span>
           </p>
         </div>
-        <ListElement :articles="cartProducts" />
+        <ListElement :articles="cartProducts" class="p-0" />
         <SolidButton
-          message="Enviar Pedido y pagar"
+          message="Validar mi pedido"
           class="mx-auto pt-3"
-          :event="goToPayment"
+          href="/validacion-pago"
         />
       </aside>
     </div>
-
-    <PaymentModal v-if="togglePaymentModal" class="m-auto" :region-field-values="regionValues" :totalToPay="cartInvoice" :shippingInfotmation="customerInfo" />
   </div>
 </template>
 
 <script>
-import ListElement from "./cart/ListElement.vue";
-import SolidButton from "./buttons/SolidButton.vue";
+import ListElement from "../cart/ListElement.vue";
+import SolidButton from "../buttons/SolidButton.vue";
 import { useStore } from "@nanostores/vue";
-import { cartItems, cartInvoiceTotal } from "../store/cartStore";
-import PaymentModal from "./PaymentModal.vue";
+import { cartItems, cartInvoiceTotal } from "../../store/cartStore";
 // import { getCardRegions } from '../../api/services/paymentService'
 export default {
   name: "OrderForm",
-  props: {
-    regionValues: {
-      type: Array,
-      default: [],
-    }
-  },
   components: {
     ListElement,
     SolidButton,
-    PaymentModal,
   },
   setup() {
     const getCartItems = useStore(cartItems);
@@ -247,7 +237,6 @@ export default {
         city: "",
         neighborhood: "",
       },
-      togglePaymentModal: false,
     };
   },
   computed: {
@@ -256,14 +245,6 @@ export default {
     },
     cartInvoice() {
       return cartInvoiceTotal(this.cartProducts);
-    },
-  },
-  async mounted() {
-    console.log('REGIOS', this.customerInfo);
-  },
-  methods: {
-    goToPayment() {
-      this.togglePaymentModal = !this.togglePaymentModal;
     },
   },
 };

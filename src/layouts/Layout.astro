@@ -26,7 +26,7 @@ const { title } = Astro.props;
       href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
-    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
   </head>
   <body class="font-inter">
     <header>
@@ -37,7 +37,7 @@ const { title } = Astro.props;
         <NavMobile categories={categoriesList} menuToggle={isMenuOpen} headerMessage={headerMessage} client:visible />
       </div>
     </header>
-    <main class="pb-14 pt-32 md:pb-0 md:pt-112 lg:px-28 bg-[#FBFBFB]">
+    <main class="pb-14 pt-32 md:pb-0 md:pt-112 lg:px-28 bg-[#FBFBFB] relative min-h-screen">
       <slot />
     </main>
     <div class="md:hidden">

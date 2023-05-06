@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { checkTransactionStatus } from '../../api/payment/wompiService.js'
-import OrderConfirmation from '../components/OrderConfirmation.vue'
+import OrderConfirmation from '../components/orders/OrderConfirmation.vue'
 
 const idTransaction =  new URLSearchParams(Astro.url.searchParams).get('idTransaccion');
 const getOrderStatus = await checkTransactionStatus(idTransaction);

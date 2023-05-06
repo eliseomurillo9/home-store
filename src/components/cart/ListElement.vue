@@ -3,9 +3,9 @@
     <div
       v-for="(article, i) in articles"
       :key="article.id"
-      class="bg-white-dark flex gap-4 p-4 md:pr-14 rounded-xl"
+      class="bg-white-dark flex max-w-fit gap-4 p-4 md:pr-14 rounded-xl"
     >
-      <figure class="w-28 md:w-32">
+      <figure class="w-28 md:w-32 my-auto">
         <img :src="article.img" alt="" class=" rounded" />
       </figure>
       <div class="flex flex-col text-lg">
@@ -31,6 +31,7 @@
                 class="outline-none focus:outline-none text-center w-full bg-[#fffff] font-semibold text-md hover:text-black focus:text-black md:text-basecursor-default flex items-center text-gray-700 border-0"
                 name="custom-input-number"
                 :value="article.quantity"
+                disabled
               />
               <button
                 data-action="increment"
