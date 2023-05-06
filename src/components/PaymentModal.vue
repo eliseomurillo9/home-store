@@ -51,29 +51,29 @@
       <div v-if="!useShippingAddress">
         <div class="mb-6">
           <label
-            for="address"
+            for="addressLine1"
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >Direccion</label
           >
           <input
             type="text"
-            id="address"
+            id="addressLine1"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5"
             placeholder="Flowbite"
-            v-model="billingInfo.address"
+            v-model="billingInfo.addressLine1"
             required
           />
         </div>
         <div class="flex justify-center gap-3">
           <div class="mb-6">
             <label
-              for="address"
+              for="city"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >Ciudad</label
             >
             <input
               type="text"
-              id="address"
+              id="city"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-xs p-1.5"
               placeholder="Flowbite"
               v-model="billingInfo.city"
@@ -82,16 +82,16 @@
           </div>
           <div class="mb-6">
             <label
-              for="address"
+              for="zip-code"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >Codigo postal</label
             >
             <input
               type="number"
-              id="address"
+              id="zip-code"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-xs p-1.5"
               placeholder="Flowbite"
-              v-model="billingInfo.zipcode"
+              v-model="billingInfo.zipCode"
               required
             />
           </div>
@@ -149,7 +149,7 @@
             id="name-in-cart"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Flowbite"
-            v-model="billingInfo.fullName.firstName"
+            v-model="billingInfo.firstName"
             required
           />
         </div>
@@ -164,7 +164,7 @@
             id="name-in-cart"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Flowbite"
-            v-model="billingInfo.fullName.lastName"
+            v-model="billingInfo.lastName"
             required
           />
         </div>
@@ -180,7 +180,7 @@
           id="phone-number"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Flowbite"
-          v-model="billingInfo.phoneNumber"
+          v-model="billingInfo.mobilePhone"
           required
         />
       </div>
@@ -270,6 +270,10 @@ export default {
       type: Object,
       default: {},
     },
+    orderId: {
+      type: String,
+      required: true,
+    }
   },
   components: {
     SolidButton,
@@ -278,18 +282,17 @@ export default {
   data() {
     return {
       billingInfo: {
-        address: "",
         country: "",
+        firstName: "",
+        lastName: "",
+        mobilePhone: "",
+        addressLine1: "",
         state: "",
         city: "",
-        zipcode: "",
-        phoneNumber: "",
+        addressLine2: "",
+        zipCode: '',
+        email: this.shippingInfotmation.user_email,
         cardNumber: "",
-        fullName: {
-          firstName: "",
-          lastName: "",
-        },
-        email: this.shippingInfotmation.email,
         expirationDate: {
           month: "",
           year: "",
@@ -315,7 +318,7 @@ export default {
           }
         : this.billingInfo;
       try {
-        const payment = await createPayment(JSON.stringify(paymentAddress));
+        const payment = await createPayment(paymentAddress, this.orderId);
         if (payment.urlCompletarPago3Ds) {
           window.location.href = payment.urlCompletarPago3Ds;
         }

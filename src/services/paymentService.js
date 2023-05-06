@@ -1,12 +1,14 @@
 
-export const createPayment = async (paymentInfo) => {
-  const url = '/transaction/payment';
+export const createPayment = async (paymentInfo, orderId) => {
+    console.log(paymentInfo);
+  const url = `/api/orders/${orderId}/payment`;
+  const infoToJson = JSON.stringify(paymentInfo)
     const sendPayment = await fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: paymentInfo,
+        body: infoToJson,
     })
 
     const res = await sendPayment.json()

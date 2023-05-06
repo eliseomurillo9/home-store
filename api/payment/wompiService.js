@@ -55,9 +55,9 @@ export const createTransaction = async (paymentInfo, token) => {
   const url = `${process.env.WOMPI_BASE_URL}TransaccionCompra/3Ds`;
   const infoToJson = JSON.stringify(paymentInfo);
   const transactionBuilder = await fetch(url, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      "Content-Type": 'application/json',
+      "Content-Type": "application/json",
       Authorization: token,
     },
     body: infoToJson,
@@ -71,16 +71,16 @@ export const createTransaction = async (paymentInfo, token) => {
   }
 };
 
-export const checkTransactionStatus = async (transactionId) => {
-  const url = `${process.env.WOMPI_BASE_URL}TransaccionCompra/${transactionId}`;
-const token = await getWompiToken()
+export const checkTransactionStatus = async (orderId, transactionId) => {
+  const url = `${process.env.BASE_URL}/api/orders/${orderId}/payment-confirmation`;
+  const idToJson = JSON.stringify({ transactionId });
   const shopStatus = await fetch(url, {
-    method: "GET",
+    method: "POST",
     headers: {
-      Accept: "*/*",
-      Authorization: token,
+      "Content-Type": "application/json",
     },
+    body: idToJson,
   });
 
-  return shopStatus;
+  return shopStatus.json();
 };

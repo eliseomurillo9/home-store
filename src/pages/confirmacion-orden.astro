@@ -4,12 +4,12 @@ import { checkTransactionStatus } from '../../api/payment/wompiService.js'
 import OrderConfirmation from '../components/orders/OrderConfirmation.vue'
 
 const idTransaction =  new URLSearchParams(Astro.url.searchParams).get('idTransaccion');
-const getOrderStatus = await checkTransactionStatus(idTransaction);
-const response = await getOrderStatus.json();
-
-if (!response.esAprobada) {
-   return Astro.redirect('/informacion-pago');
-}
+const orderId =  new URLSearchParams(Astro.url.searchParams).get('orderId');
+const getOrderStatus = await checkTransactionStatus(orderId, idTransaction);
+console.log(getOrderStatus);
+//if (!getOrderStatus.esAprobada) {
+//    return Astro.redirect('/informacion-pago');
+//}
 ---
 
 <Layout title={'Confirmacion'}>

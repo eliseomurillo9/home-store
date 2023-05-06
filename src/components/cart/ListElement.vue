@@ -22,7 +22,7 @@
               <button
                 data-action="decrement"
                 class="text-gray-600 bg-[#FBFBFB] hover:bg-gray-light h-full w-20 rounded-l cursor-pointer outline-none flex justify-center items-center"
-                @click="deleteItem(article.id)"
+                @click="deleteItem(article._id)"
               >
                 <span class="font-semibold text-blue-main leading-none">−</span>
               </button>
@@ -67,8 +67,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 <script>
 import OutlineButton from "../buttons/OutlineButton.vue";
-import { removeCartItem } from '../../store/cartStore.js';
-import { addCartItem } from "../../store/cartStore";
+import { removeCartItem, addCartItem  } from '../../store/cartStore.js';
 
 
 export default {
@@ -84,6 +83,7 @@ export default {
   },
   methods: {
     deleteItem(id) {
+      console.log('WORKING');
       removeCartItem(id);
     },
     addToCart(product) {

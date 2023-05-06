@@ -18,6 +18,7 @@
       </h2>
     </div>
     <div class="h-px bg-gray-light mt-1"></div>
+    <span class="text-red font-bold">{{ errorMessage }}</span>
     <div class="flex flex-col md:flex-row justify-center gap-10 pt-8">
       <div class="flex flex-col justify-center">
         <label
@@ -61,7 +62,7 @@
           <label
             for="email"
             class="block mb-1 text-sm font-medium text-gray-900"
-            >Email address</label
+            >Email addressLine1</label
           >
           <input
             type="email"
@@ -117,22 +118,22 @@
             placeholder="123-45-678"
             pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
             required
-            v-model="customerInfo.phoneNumber"
+            v-model="customerInfo.mobilePhone"
           />
         </div>
         <div class="mb-6">
           <label
-            for="address"
+            for="addressLine1"
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >Direccion</label
           >
           <input
             type="text"
-            id="address"
+            id="addressLine1"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Flowbite"
             required
-            v-model="customerInfo.address"
+            v-model="customerInfo.addressLine1"
           />
         </div>
         <div class="flex gap-4 justify-center mb-6">
@@ -169,20 +170,24 @@
         </div>
         <div class="mb-6">
           <label
-            for="neighborhood"
+            for="addressLine2"
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >Colonia</label
           >
           <input
             type="text"
-            id="neighborhood"
+            id="addressLine2"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Flowbite"
             required
-            v-model="customerInfo.neighborhood"
+            v-model="customerInfo.addressLine2"
           />
         </div>
-        <SolidButton message="Validar mi pedido" class="mx-auto" />
+        <SolidButton
+          message="Validar mi pedido"
+          class="mx-auto"
+          :event="validateCart"
+        />
       </div>
       <aside
         class="bg-inherit md:bg-white-dark overscroll-x-none overflow-y-auto md:h-128 rounded-lg flex flex-col items-center gap-4 drop-shadow-xl max-w-full overflow-x-hidden p-4"
@@ -194,13 +199,13 @@
           <p class="text-xl pt-1 mt-2">
             Subtotal: <span class="font-bold">${{ cartInvoice }}</span>
           </p>
+          <SolidButton
+            message="Validar mi pedido"
+            class="mx-auto pt-3"
+            :event="validateCart"
+          />
         </div>
         <ListElement :articles="cartProducts" class="p-0" />
-        <SolidButton
-          message="Validar mi pedido"
-          class="mx-auto pt-3"
-          href="/validacion-pago"
-        />
       </aside>
     </div>
   </div>
@@ -211,7 +216,7 @@ import ListElement from "../cart/ListElement.vue";
 import SolidButton from "../buttons/SolidButton.vue";
 import { useStore } from "@nanostores/vue";
 import { cartItems, cartInvoiceTotal } from "../../store/cartStore";
-// import { getCardRegions } from '../../api/services/paymentService'
+import { createOrder } from "../../services/orderService.js";
 export default {
   name: "OrderForm",
   components: {
@@ -231,12 +236,14 @@ export default {
         email: "",
         firstName: "",
         lastName: "",
-        phoneNumber: "",
-        address: "",
+        mobilePhone: "",
+        addressLine1: "",
         state: "",
         city: "",
-        neighborhood: "",
+        addressLine2: "",
+        zipCode: "00000",
       },
+      errorMessage: "",
     };
   },
   computed: {
@@ -245,6 +252,30 @@ export default {
     },
     cartInvoice() {
       return cartInvoiceTotal(this.cartProducts);
+    },
+  },
+  methods: {
+    async validateCart() {
+      try {
+        const orderCreator = await createOrder({
+          address: this.customerInfo,
+          email: this.customerInfo.email,
+          cartProducts: this.cartProducts,
+        });
+        this.errorMessage = "";
+        const existingOrders = JSON.parse(localStorage.getItem("order"));
+        if (!existingOrders) {
+          await localStorage.setItem(
+            "order",
+            JSON.stringify(orderCreator._id)
+          );
+        }
+
+        return window.location.assign("/validacion-pago");
+      } catch (error) {
+        this.errorMessage =
+          "Lo sentimos, no hemos podido validar tu cumpra, intentalo de nuevo.";
+      }
     },
   },
 };

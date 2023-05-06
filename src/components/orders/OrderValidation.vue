@@ -20,36 +20,37 @@
     <div class="text-white-dark"></div>
     <div
       class="flex gap-10 justify-center bg-white-dark rounded drop-shadow p-5 m-auto"
+      v-if="orderData"
     >
       <dl class="w-full max-w-xl text-gray divide-y divide-gray-light">
         <div class="flex flex-col pb-3">
           <dt class="mb-1 text-gray md:text-lg">Nombre</dt>
-          <dd class="text-lg font-semibold">Eliseo Murillo</dd>
+          <dd class="text-lg font-semibold">
+            {{ `${orderData?.mailing_address?.firstName} ${orderData?.mailing_address?.firstName}` }}
+          </dd>
         </div>
         <div class="flex flex-col pb-3">
           <dt class="mb-1 text-gray md:text-lg">Email</dt>
-          <dd class="text-lg font-semibold">yourname@flowbite.com</dd>
+          <dd class="text-lg font-semibold">{{ orderData?.user_email }}</dd>
         </div>
         <div class="flex flex-col py-3">
           <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">
             Direccion de envio
           </dt>
-          <dd class="text-lg font-semibold">
-            92 Miles Drive, Newark, NJ 07103, California, USA
-          </dd>
+          <dd class="text-lg font-semibold">{{ `${orderData?.mailing_address?.addressLine1} ${orderData?.mailing_address?.addressLine2}, ${orderData?.mailing_address?.city} ${orderData?.mailing_address?.zipCode} ${orderData?.mailing_address?.country}` }}</dd>
         </div>
         <div class="flex flex-col pt-3">
           <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">
             Numero de telefono
           </dt>
-          <dd class="text-lg font-semibold">+00 123 456 789 / +12 345 678</dd>
+          <dd class="text-lg font-semibold">{{ orderData?.mailing_address?.mobilePhone }}</dd>
         </div>
       </dl>
 
       <ul class="divide-y divide-gray-200 dark:divide-gray-700 w-full max-w-xl">
         <li
           class="py-3 sm:pb-4"
-          v-for="product in productsList"
+          v-for="product in orderData?.cart?.products"
           :key="product.id"
         >
           <div class="flex items-center space-x-4">
@@ -64,20 +65,20 @@
               <p
                 class="text-sm font-medium text-gray-900 truncate dark:text-white"
               >
-                {{ product.name }}
+                {{ product?.name }}
               </p>
             </div>
             <div class="flex-1 min-w-0">
               <p
                 class="text-sm font-medium text-gray-900 truncate dark:text-white"
               >
-                4
+                {{ product?.quantity }}
               </p>
             </div>
             <div
               class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white"
             >
-              ${{ product.price.toFixed(2) }}
+              ${{ product?.price.toFixed(2) }}
             </div>
           </div>
         </li>
@@ -91,6 +92,9 @@
       v-if="togglePaymentModal"
       class="m-auto"
       :region-field-values="regionValues"
+      :shippingInfotmation="orderData"
+      :totalToPay="orderData.cart.totalPrice"
+      :orderId="orderId"
     />
   </div>
 </template>
@@ -99,6 +103,7 @@ import ListElement from "../cart/ListElement.vue";
 import OutlineButton from "../buttons/OutlineButton.vue";
 import PaymentModal from "../PaymentModal.vue";
 import SolidButton from "../buttons/SolidButton.vue";
+import { getOrder } from "../../services/orderService.js";
 import product1 from "../../assets/db36afb84a15c111f66d1083522fbe39042389ff.png";
 import product2 from "../../assets/71-v6h8hwzL._AC_SX425_.jpg";
 import product3 from "../../assets/61DNezja+cL._AC_SX425_.jpg";
@@ -113,42 +118,15 @@ export default {
   },
   data() {
     return {
-      productsList: [
-        {
-          id: 2,
-          img: product1,
-          alt: "Perro y gato sentados",
-          title: "Toalla",
-          price: 0.1,
-          href: "/id",
-        },
-        {
-          id: 3,
-          img: product2,
-          alt: "producto 2",
-          title: "Nose",
-          price: 8,
-          href: "/id",
-        },
-        {
-          id: 4,
-          img: product3,
-          alt: "Producto 3",
-          title: "Toalla",
-          price: 0.1,
-          href: "/id",
-        },
-        {
-          id: 5,
-          img: product3,
-          alt: "Producto 3",
-          title: "Toalla",
-          price: 0.1,
-          href: "/id",
-        },
-      ],
       togglePaymentModal: false,
+      orderId: JSON.parse(localStorage.getItem("order")),
+      orderData: undefined,
     };
+  },
+  async mounted() {
+    this.orderData = await getOrder({ orderId: this.orderId });
+
+    console.log('orderData', this.orderData)
   },
   methods: {
     goToPayment() {

@@ -26,13 +26,13 @@ app.use(express.static("dist/client/"));
 app.use("/api/", productsRouter);
 app.use("/api/categories", categoryRouter);
 app.use("/api/subCategories", subCategoryRouter);
-app.use("/transaction/", orderRoutes);
+app.use("/api/orders", orderRoutes);
 
 app.use("/uploads", express.static("uploads"));
 app.use(ssrHandler);
 
-app.use(isAuthorized);
 app.use("/admin/cms", contentManagerRoutes);
+// app.use(isAuthorized);
 
 
 app.listen(PORT, () =>
