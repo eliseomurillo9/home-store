@@ -3,13 +3,13 @@
     <figure>
       <img
         :src="product.img"
-        alt=""
+        :alt="product.name"
         class="object-contain h-full max-h-44 rounded"
       />
     </figure>
     <div class="p-4">
       <h2 class="text-xs md:text-base font-semibold text-start text-gray">
-        {{ product.title }}
+        {{ product.name }}
       </h2>
       <div class="flex justify-between mt-5">
         <p class="text-xl font-bold text-blue-main">€{{ product.price.toFixed(2) }}</p>

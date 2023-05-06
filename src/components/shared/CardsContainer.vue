@@ -1,6 +1,11 @@
 <template>
   <div v-for="item in productsList" :key="item.id">
-    <Card :product="item" :isAddedToCart="Object.values(getCartProducts).find((product) => product.id === item.id)"/>
+    <Card
+      :product="item"
+      :isAddedToCart="
+        Object.values(getCartProducts).find((product) => product.id === item.id)
+      "
+    />
   </div>
 </template>
 
@@ -18,43 +23,51 @@ export default {
   setup() {
     const getCartProducts = useStore(cartItems);
     return {
-      getCartProducts
+      getCartProducts,
     };
   },
   data() {
     return {
       productsList: [
         {
+          _id: "64562988c187554151f6bef8",
+          id: 1,
+          name: "Set de cubiertos",
+          brand: "Home Store",
+          price: 0.1,
+          category: "64327cf05dc54bb75a225959",
+          img: "http://localhost:5000/uploads/image-1683368205431.jpg",
+          __v: 0,
+        },
+        {
+          _id: "645629dec187554151f6befa",
           id: 2,
-          img: product1,
-          alt: "Perro y gato sentados",
-          title: "Toalla",
-          price: 0.10,
-          href: "/id",
+          name: "Toalla",
+          brand: "Home Store",
+          price: 0.1,
+          category: "64327cf05dc54bb75a225959",
+          img: "http://localhost:5000/uploads/image-1683368394405.jpg",
+          __v: 0,
         },
         {
+          _id: "64562a0fc187554151f6befc",
           id: 3,
-          img: product2,
-          alt: "producto 2",
-          title: "Nose",
-          price: 8,
-          href: "/id",
+          name: "Filltro para lavabo",
+          brand: "Home Store",
+          price: 0.1,
+          category: "64327cf05dc54bb75a225959",
+          img: "http://localhost:5000/uploads/image-1683368434481.jpg",
+          __v: 0,
         },
         {
+          _id: "64562a43c187554151f6befe",
           id: 4,
-          img: product3,
-          alt: "Producto 3",
-          title: "Toalla",
-          price: 0.10,
-          href: "/id",
-        },
-        {
-          id: 5,
-          img: product3,
-          alt: "Producto 3",
-          title: "Toalla",
-          price: 0.10,
-          href: "/id",
+          name: "Cortina",
+          brand: "Home Store",
+          price: 0.1,
+          category: "64327cf05dc54bb75a225959",
+          img: "http://localhost:5000/uploads/image-1683368494588.jpg",
+          __v: 0,
         },
       ],
     };

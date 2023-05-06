@@ -9,7 +9,7 @@
         <img :src="article.img" alt="" class=" rounded" />
       </figure>
       <div class="flex flex-col text-lg">
-        <h3>{{ article.title }}</h3>
+        <h3>{{ article.name }}</h3>
         <span class="text-blue-dark text-lg font-semibold"
           >${{ article.price }}</span
         >

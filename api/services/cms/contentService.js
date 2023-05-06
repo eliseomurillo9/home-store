@@ -12,8 +12,8 @@ const modifyContent = async (id, info) => {
 };
 
 const getContentTypeData = async (contentType) => {
-    const contentData = await Content.findOne(contentType);
-    return contentData;
-}
+  const contentData = await Content.findOne(contentType).populate("products");
+  return contentData;
+};
 
 export default { saveContent, modifyContent, getContentTypeData };

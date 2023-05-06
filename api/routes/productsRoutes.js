@@ -6,7 +6,7 @@ import upload from '../db/uploader.js';
 
 router.route('/products').get(productController.getProducts);
 router.route('/product/:id').get(productController.getProduct);
-router.route('/products').post(upload.single('image'), productController.postProduct);
+router.route('/products').post(productController.postProduct);
 
 
 export default router;

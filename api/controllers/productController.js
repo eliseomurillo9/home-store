@@ -18,8 +18,7 @@ const getProduct = async (req, res) => {
 const postProduct = async (req, res, next) => {
   try {
     const productData = {
-      ...req.body,
-      img:`http://localhost:5000/uploads/${req.file.filename}`,
+      ...req.body
     }
       const productCreation= await productService.postProduct(productData);
       return res.status(200).json(productCreation);

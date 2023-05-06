@@ -64,7 +64,7 @@
               <p
                 class="text-sm font-medium text-gray-900 truncate dark:text-white"
               >
-                {{ product.title }}
+                {{ product.name }}
               </p>
             </div>
             <div class="flex-1 min-w-0">

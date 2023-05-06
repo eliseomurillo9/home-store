@@ -8,7 +8,7 @@ export const getCart = () => {
   if (typeof window !== "undefined") {
     const item = JSON.parse(localStorage.getItem("cart"));
     item?.forEach((product) => {
-      cartItems.setKey(product.id, product);
+      cartItems.setKey(product._id, product);
     });
   }
 };
@@ -18,11 +18,11 @@ export const cartInvoiceTotal = (_cartItems) => {
 }
 
 export function addCartItem(product) {
-  const existingEntry = cartItems.get()[product.id];
+  const existingEntry = cartItems.get()[product._id];
   const existinCartInStorage = JSON.parse(localStorage.getItem("cart"));
   const findItemStorage = _.findIndex(
     existinCartInStorage,
-    (item) => item.id === product.id
+    (item) => item._id === product._id
   );
   if (existinCartInStorage && existingEntry && findItemStorage.toString()) {
     const updateProduct = {
@@ -30,7 +30,7 @@ export function addCartItem(product) {
       quantity: existingEntry.quantity + 1,
       isAddedToCart: true,
     };
-    cartItems.setKey(product.id, updateProduct);
+    cartItems.setKey(product._id, updateProduct);
     existinCartInStorage.splice(findItemStorage, 1, updateProduct);
 
     localStorage.setItem("cart", JSON.stringify(existinCartInStorage));
@@ -41,7 +41,7 @@ export function addCartItem(product) {
 
     cartCreation.push(addProduct);
 
-    cartItems.setKey(product.id, addProduct);
+    cartItems.setKey(product._id, addProduct);
 
     if (!existinCartInStorage) {
       localStorage.setItem("cart", JSON.stringify(cartCreation));
@@ -58,7 +58,7 @@ export async function removeCartItem(id) {
   const existinCartInStorage = await JSON.parse(localStorage.getItem("cart"));
   const findItemStorage = _.findIndex(
     existinCartInStorage,
-    (item) => item.id === id
+    (item) => item._id === id
   );
   console.log("product", product);
   if (product.quantity > 1) {
@@ -66,13 +66,13 @@ export async function removeCartItem(id) {
       ...product,
       quantity: product.quantity - 1,
     };
-    cartItems.setKey(id, updateProduct);
+    cartItems.setKey(_id, updateProduct);
 
     existinCartInStorage.splice(findItemStorage, 1, updateProduct);
 
     localStorage.setItem("cart", JSON.stringify(existinCartInStorage));
   } else {
-    cartItems.setKey(id, undefined);
+    cartItems.setKey(_id, undefined);
 
     existinCartInStorage.splice(findItemStorage, 1);
 

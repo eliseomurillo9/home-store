@@ -10,7 +10,7 @@ let productSchema = new Schema({
         trim: true
     },
     price: {
-        type: String,
+        type: Number,
         required: false
     },
     category: {
