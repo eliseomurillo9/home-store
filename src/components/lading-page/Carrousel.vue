@@ -4,14 +4,14 @@
     <div class="relative h-56 overflow-hidden md:h-96 lg:h-128">
       <!-- Item 1 -->
       <div
-        v-for="(img, index) of carrouseImg"
+        v-for="(img, index) of images"
         class="hidden duration-700 ease-in-out"
         :key="index"
         data-carousel-item
       >
         <img
-          :src="img.href"
-          class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+          :src="img.fileUrl"
+          class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
           :alt="img.alt"
         />
       </div>
@@ -21,7 +21,7 @@
       class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2"
     >
       <button
-        v-for="(img, index) of carrouseImg"
+        v-for="(img, index) of images"
         type="button"
         class="w-3 h-3 rounded-full"
         aria-current="true"
@@ -86,28 +86,16 @@
 </template>
 
 <script>
-import img from "../../assets/sub-buzz-9091-1523401984-1.jpg";
-import img2 from "../../assets/kebab.jpg";
-import img3 from "../../assets/maxresdefault.jpg";
+import img from "../../assets/3495344.webp";
+import img2 from "../../assets/m011t0547_b_mothers_day_27feb23.webp";
+import img3 from "../../assets/6385590.webp";
 export default {
   name: "HomePage",
-  data() {
-    return {
-      carrouseImg: [
-        {
-          href: img,
-          alt: "Patrick image",
-        },
-        {
-          href: img2,
-          alt: "Kebab image",
-        },
-        {
-          href: img3,
-          alt: "PAtrick doc image",
-        },
-      ],
-    };
+  props: {
+    images: {
+      type: Array,
+      default: false,
+    },
   },
 };
 </script>

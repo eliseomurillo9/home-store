@@ -16,11 +16,11 @@
       <h2 class="text-blue-dark text-3xl font-bold">Carrito</h2>
     </div>
     <div class="h-px bg-gray-light mt-1"></div>
-    <div class="flex md:justify-between flex-col-reverse sm:flex-row pt-4 md:pt-10 gap-2 m-full max-w-screen-xl mx-auto" v-if="cartProducts.length">
-      <ListElement :articles="cartProducts" />
+    <div class="flex md:justify-between flex-col-reverse sm:flex-row pt-4 md:pt-10 gap-2 m-full max-w-screen-xl mx-auto" v-if="cartProducts.length > 0">
+      <ListElement class="mx-auto md:mx-0" :articles="cartProducts" />
       <InvoiceContainer :amountToPay="cartInvoice"/>
     </div>
-    <div v-else>
+    <div v-if="cartProducts.length === 0">
       <h2>Tu carrito esta vacio
 
       </h2>

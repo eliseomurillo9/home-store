@@ -1,4 +1,4 @@
-import { Schema, ObjectId } from "mongoose";
+import { Schema } from "mongoose";
 import productSchema from "./productSchema.js";
 
 const cartProductSchema = productSchema;

@@ -115,8 +115,8 @@
             type="tel"
             id="phone"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="123-45-678"
-            pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+            placeholder="2519-3570"
+            pattern="[0-9]{6}-[0-9]{6}"
             required
             v-model="customerInfo.mobilePhone"
           />
@@ -131,7 +131,7 @@
             type="text"
             id="addressLine1"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Flowbite"
+            placeholder="Direccion de domicilio"
             required
             v-model="customerInfo.addressLine1"
           />
@@ -147,7 +147,7 @@
               type="state"
               id="company"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Flowbite"
+              placeholder="Estado"
               required
               v-model="customerInfo.state"
             />
@@ -162,7 +162,7 @@
               type="city"
               id="company"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Flowbite"
+              placeholder="Ciudad"
               required
               v-model="customerInfo.city"
             />
@@ -178,7 +178,7 @@
             type="text"
             id="addressLine2"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Flowbite"
+            placeholder="Colonia"
             required
             v-model="customerInfo.addressLine2"
           />
@@ -201,7 +201,7 @@
           </p>
           <SolidButton
             message="Validar mi pedido"
-            class="mx-auto pt-3"
+            class="mx-auto pt-3 flex justify-center"
             :event="validateCart"
           />
         </div>
@@ -216,7 +216,7 @@ import ListElement from "../cart/ListElement.vue";
 import SolidButton from "../buttons/SolidButton.vue";
 import { useStore } from "@nanostores/vue";
 import { cartItems, cartInvoiceTotal } from "../../store/cartStore";
-import { createOrder } from "../../services/orderService.js";
+import { createOrder, getOrder } from "../../services/orderService.js";
 export default {
   name: "OrderForm",
   components: {
@@ -253,28 +253,45 @@ export default {
     cartInvoice() {
       return cartInvoiceTotal(this.cartProducts);
     },
+    orderIdFromUrl() {
+      return new URL(document.location).searchParams.get("orderId");
+    },
+  },
+  mounted() {
+    this.getOrderInfoforEdition();
   },
   methods: {
     async validateCart() {
-      try {
-        const orderCreator = await createOrder({
-          address: this.customerInfo,
-          email: this.customerInfo.email,
-          cartProducts: this.cartProducts,
-        });
-        this.errorMessage = "";
-        const existingOrders = JSON.parse(localStorage.getItem("order"));
-        if (!existingOrders) {
-          await localStorage.setItem(
-            "order",
-            JSON.stringify(orderCreator._id)
-          );
-        }
+        try {
+          const orderCreator = await createOrder({
+            address: this.customerInfo,
+            email: this.customerInfo.email,
+            cartProducts: this.cartProducts,
+          });
+          this.errorMessage = "";
+          const existingOrders = JSON.parse(localStorage.getItem("order"));
+          if (!existingOrders) {
+            await localStorage.setItem(
+              "order",
+              JSON.stringify(orderCreator._id)
+            );
+          }
 
-        return window.location.assign("/validacion-pago");
-      } catch (error) {
-        this.errorMessage =
-          "Lo sentimos, no hemos podido validar tu cumpra, intentalo de nuevo.";
+          return window.location.assign("/validacion-pago");
+        } catch (error) {
+          this.errorMessage =
+            "Lo sentimos, no hemos podido validar tu cumpra, intentalo de nuevo.";
+        }
+    },
+    async getOrderInfoforEdition() {
+      if (this.orderIdFromUrl) {
+        const getCustomerInfo = await getOrder({
+          orderId: this.orderIdFromUrl,
+        });
+        this.customerInfo = {
+          ...getCustomerInfo.mailing_address,
+          email: getCustomerInfo.user_email,
+        };
       }
     },
   },

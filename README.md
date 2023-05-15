@@ -1,54 +1,35 @@
-# Astro Starter Kit: Basics
 
+<p align="center">
+    <img src="./src/assets/home-store-white-200.png" width="200"/>
+</p>
+
+## About
+[Home Store](https://homestoresv.com/) is e-commerce site developped for a salvadorian company.
+This project is second version of the website and done to improve SEO, pass from CSR to SSR, UI/UX improvements and make an upgrade in the technos of actual project
+#
+## Technologies
+- Astro Build
+- VueJs
+- Tailwind
+- Flowbite
+- ExpressJs
+- Mongoose
+## Installation
+Use the package manager [PnPM](https://pnpm.io/fr/) to install it.
+
+## Requirements
+- Node version 16 or later.
+- PnPM installed
+- File .env (provided by admin)
+
+## Commands
 ```
-npm create astro@latest -- --template basics
+pnpm install
+```
+```
+pnpm run server
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-![basics](https://user-images.githubusercontent.com/4677417/186188965-73453154-fdec-4d6b-9c34-cb35c248ae5b.png)
-
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                | Action                                           |
-| :--------------------- | :----------------------------------------------- |
-| `npm install`          | Installs dependencies                            |
-| `npm run dev`          | Starts local dev server at `localhost:3000`      |
-| `npm run build`        | Build your production site to `./dist/`          |
-| `npm run preview`      | Preview your build locally, before deploying     |
-| `npm run astro ...`    | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Developpers
+- Eliseo Murillo: eliseomurillo9@gmail.com
+- Rebeca Murillo: rebeca.murillo.pro@gmail.com

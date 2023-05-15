@@ -1,13 +1,8 @@
 import productService from '../services/productsService.js';
-import fs from 'fs';
-import path from 'path';
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-const __dirname = dirname('');
 
 const getProducts = async (req, res) => {
   const allProducts = await productService.getProducts();
-  return res.status(200).json(allProducts) // en controllers
+  return res.status(200).json(allProducts);
 };
 
 const getProduct = async (req, res) => {
@@ -23,7 +18,7 @@ const postProduct = async (req, res, next) => {
       const productCreation= await productService.postProduct(productData);
       return res.status(200).json(productCreation);
   } catch (error) {
-    return res.send('Images es requerida para la creacion de producto')
+    return res.send('Images es requerida para la creacion de producto');
   }
 };
 

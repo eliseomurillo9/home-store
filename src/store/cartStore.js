@@ -28,7 +28,6 @@ export function addCartItem(product) {
     const updateProduct = {
       ...existingEntry,
       quantity: existingEntry.quantity + 1,
-      isAddedToCart: true,
     };
     cartItems.setKey(product._id, updateProduct);
     existinCartInStorage.splice(findItemStorage, 1, updateProduct);
@@ -37,7 +36,7 @@ export function addCartItem(product) {
   } else {
     const cartCreation = [];
 
-    const addProduct = { ...product, quantity: 1, isAddedToCart: true };
+    const addProduct = { ...product, quantity: 1};
 
     cartCreation.push(addProduct);
 
@@ -45,7 +44,7 @@ export function addCartItem(product) {
 
     if (!existinCartInStorage) {
       localStorage.setItem("cart", JSON.stringify(cartCreation));
-    } else {
+    } else { 
       existinCartInStorage.push(addProduct);
       localStorage.setItem("cart", JSON.stringify(existinCartInStorage));
     }
@@ -53,22 +52,17 @@ export function addCartItem(product) {
 }
 
 export async function removeCartItem(id) {
-  console.log("id", id);
   const product = await cartItems.get()[id];
-  console.log('product in store', product);
   const existinCartInStorage = await JSON.parse(localStorage.getItem("cart"));
   const findItemStorage = _.findIndex(
     existinCartInStorage,
     (item) => item._id === id
   );
-  console.log('ESTORAGE', findItemStorage);
   if (product.quantity > 1) {
-    console.log('RUNING CONFDIYTION');
     const updateProduct = {
       ...product,
       quantity: product.quantity - 1,
     };
-    console.log('UPDATED PRODUCT', updateProduct);
     cartItems.setKey(id, updateProduct);
 
     existinCartInStorage.splice(findItemStorage, 1, updateProduct);

@@ -8,7 +8,6 @@ import contentManagerRoutes from './api/routes/cms/contentManagerRoutes.js'
 import { handler as ssrHandler } from "./dist/server/entry.mjs";
 import dotenv from "dotenv";
 import cors from "cors";
-import { isAuthorized } from "./api/auth/auth.js";
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -17,21 +16,21 @@ dbConnection();
 
 app.use(json());
 app.use(cors({
-  origin:'http://localhost:5000'
+  origin:process.env.BASE_URL,
 }));
 app.get("/api/test", (req, res) => {
   res.send("Home store HELLOOOO");
 });
-app.use(express.static("dist/client/"));
-app.use("/api/", productsRouter);
+app.use("/api/products", productsRouter);
 app.use("/api/categories", categoryRouter);
 app.use("/api/subCategories", subCategoryRouter);
 app.use("/api/orders", orderRoutes);
+app.use("/api/admin/cms", contentManagerRoutes);
 
 app.use("/uploads", express.static("uploads"));
+app.use(express.static("dist/client/"));
 app.use(ssrHandler);
 
-app.use("/admin/cms", contentManagerRoutes);
 // app.use(isAuthorized);
 
 

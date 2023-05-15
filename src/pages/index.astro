@@ -2,64 +2,50 @@
 import Layout from "../layouts/Layout.astro";
 import Carrousel from "../components/lading-page/Carrousel.vue";
 import Poster from "../components/shared/Poster.vue";
-import image from "../assets/cat-and-dog-happy.jpg";
-import image2 from "../assets/How to furnish your home on a budget.webp";
 import SolidButton from "../components/buttons/SolidButton.vue";
 import CategoryCard from "../components/shared/CategoryCard.vue";
-import imageCat from "../assets/KINGSEVEN-lunettes-De-soleil-en-bois-naturel-pour-hommes-polaris-es-la-mode-originales-Oculos-De.jpg_Q90.jpg_.webp";
 import CardsContainer from "../components/shared/CardsContainer.vue";
 
-const categoriesSection = [
-  {
-    img: image,
-    alt: "Perro y gato sentados",
-    message: "Mascotas",
-    isLink: true,
-    buttonMessage: "prueba",
-    href: "/Mascotas",
-  },
-  {
-    img: image2,
-    alt: "salon de hogar",
-    message: "Decoracion",
-    isLink: true,
-    buttonMessage: "prueba",
-    href: "/Decoracion",
-  },
-];
+const getCarrouselImage = await fetch(
+  "http://localhost:5000/api/admin/cms/CARROUSEL"
+);
+const carrouselImage = await getCarrouselImage.json();
 
-const categoryPoster ={
-  id: 1,
-    img: image,
-    alt: "Perro y gato sentados",
-    message: "Mascotas",
-    isLink: true,
-    buttonMessage: "prueba",
-    href: "/Mascotas",
-  };
+const getProductsCard = await fetch(
+  "http://localhost:5000/api/admin/cms/PRODUCTS-CARD"
+);
+const productsCards = await getProductsCard.json();
 
+const getCategoriesPoster = await fetch(
+  "http://localhost:5000/api/admin/cms/CATEGORY-POSTER"
+);
+const categoriesPosters = await getCategoriesPoster.json();
 
+const getCategoriesCards = await fetch(
+  "http://localhost:5000/api/admin/cms/CATEGORY-CARD"
+);
+const categoriesCards = await getCategoriesCards.json();
 ---
 
-<Layout title="Welcome ELiseo">
+<Layout title="Bienvenido a tienda">
   <div>
-    <Carrousel />
+    <Carrousel images={carrouselImage.content} />
     <section class="container m-auto">
       <div class="sm:columns-3xs md:columns-2 gap-5 mt-6 pb-2">
         {
-          categoriesSection.map((category) => (
+          categoriesPosters.content.slice(0, 2).map((category) => (
             <Poster
-              imgSrc={category.img}
+              imgSrc={category.fileUrl}
               imgAlt={category.alt}
               class=" h-64 md:h-80"
             >
               <div class="absolute bottom-5 left-5 gap-4">
-                <h2 class="text-3xl font-semibold pb-2 text-white">
-                  {category.message}
+                <h2 class="text-3xl font-semibold pb-2 text-white" style="text-shadow: 1px 1px 1px #3D4849;">
+                  {category.description}
                 </h2>
                 <SolidButton
-                  isLink={category.isLink}
-                  message={category.buttonMessage}
+                  isLink={category.linkUrl}
+                  message="Ver productos"
                 />
               </div>
             </Poster>
@@ -69,39 +55,43 @@ const categoryPoster ={
     </section>
     <div class="h-px bg-gray-light my-9"></div>
     <section class="px-4 pt-2">
-      <h2 class="text-center text-xl font-semibold text-gray mb-4">Productos mas vendidos</h2>
-     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 justify-between pt-2">
-      <CardsContainer client:load/>
-     </div>
+      <h2 class="text-center text-xl font-semibold text-gray mb-4">
+        {productsCards.title}
+      </h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 justify-between pt-2">
+        <CardsContainer productList={productsCards.products} client:load />
+      </div>
     </section>
     <div class="h-px bg-gray-light my-9"></div>
     <section class="container m-auto">
       <div class="columns-1 gap-5 mt-6 pb-2">
-        
-            <Poster
-              imgSrc={categoryPoster.img}
-              imgAlt={categoryPoster.alt}
-              class=" h-64 md:h-80"
+        <Poster
+          imgSrc={categoriesPosters.content[2].fileUrl}
+          imgAlt={categoriesPosters.content[2].alt}
+          class="h-64 md:h-80"
+        >
+          <div class="absolute bottom-5 left-5 gap-4">
+            <h2
+              class="text-3xl font-semibold pb-2 text-white drop-shadow-lg"
             >
-              <div class="absolute bottom-5 left-5 gap-4">
-                <h2 class="text-3xl font-semibold pb-2 text-white">
-                  {categoryPoster.message}
-                </h2>
-                <SolidButton
-                  isLink={categoryPoster.isLink}
-                  message={categoryPoster.buttonMessage}
-                />
-              </div>
-            </Poster>
+              {categoriesPosters.content[2].description}
+            </h2>
+            <SolidButton
+              isLink={categoriesPosters.content[2].linkUrl}
+              message="Ver productos"
+            />
+          </div>
+        </Poster>
       </div>
     </section>
     <div class="h-px bg-gray-light my-9"></div>
-    <section class="px-4">
+    <section class="px-4 mb-32">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 justify-between pt-2">
-        <CategoryCard img={imageCat} class="m-auto"/>
-        <CategoryCard img={imageCat} class="m-auto"/>
-        <CategoryCard img={imageCat} class="m-auto"/>
-        <CategoryCard img={imageCat} class="m-auto"/>
+        {
+          categoriesCards.content.map((category) => (
+            <CategoryCard categoryInfo={category} class="m-auto"/>
+          ))
+        }
       </div>
     </section>
   </div>

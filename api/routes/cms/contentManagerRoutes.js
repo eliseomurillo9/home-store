@@ -9,7 +9,7 @@ import { isAuthorized } from '../../auth/auth.js';
 router.route('/file').post(isAuthorized, upload.single('image'), postFile);
 router.route('/').post(isAuthorized, contentManagerController.postContent);
 router.route('/:id').put(isAuthorized, contentManagerController.modifyContent);
-router.route('/:contentType').get(isAuthorized, contentManagerController.getContent);
+router.route('/:contentType').get(contentManagerController.getContent);
 
 
 

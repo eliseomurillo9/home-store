@@ -11,7 +11,7 @@
       <div class="flex flex-col text-lg">
         <h3>{{ article.name }}</h3>
         <span class="text-blue-dark text-lg font-semibold"
-          >${{ article.price }}</span
+          >${{ article.price.toFixed(2) }}</span
         >
         <span class="text-xs text-green">En Stock</span>
         <div class="flex gap-7 items-center">

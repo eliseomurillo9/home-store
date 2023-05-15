@@ -1,5 +1,7 @@
 import jwksClient from "jwks-rsa";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 export async function isAuthorized(req, res, next) {
   const authHeader = req.headers.authorization;
@@ -11,19 +13,18 @@ export async function isAuthorized(req, res, next) {
   const token = authHeader.split(" ")[1];
 
   try {
-    var client = jwksClient({
+    const client = jwksClient({
       jwksUri:
-        "https://dev-ivwetbsasozkjxc7.us.auth0.com/.well-known/jwks.json",
+        process.env.PUBLIC_KEY,
     });
     async function getKey(header, callback) {
       client.getSigningKey(header.kid, function (err, key) {
-        var signingKey = key.publicKey || key.rsaPublicKey;
+        const signingKey = key.publicKey || key.rsaPublicKey;
         callback(null, signingKey);
       });
     }
-    let decoded = await jwt.verify(token, getKey, function (err, decoded) {
+    jwt.verify(token, getKey, function (err, decoded) {
       if (err) throw err;
-
       if (!decoded.permissions?.includes("admin"))
         return res
           .status(403)

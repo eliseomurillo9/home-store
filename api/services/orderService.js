@@ -54,9 +54,7 @@ const paymentRequest = async (orderId, paymentInfo) => {
 };
 
 const paymentConfirmationService = async (orderId, transactionId) => {
-  // console.log(orderId, transactionId);
   const orderDTO = await getOrder(orderId);
-  console.log("OORDER", orderDTO);
   if (!orderDTO) {
     return {
       error: {
@@ -75,8 +73,6 @@ const paymentConfirmationService = async (orderId, transactionId) => {
     },
   });
   const response =  await shopStatus.json()
-
-  console.log("shopStatus", response);
 
   const paymentInfoItem = {
     source: "WOMPISV",

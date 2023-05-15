@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col px-6">
     <div class="flex gap-3 items-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +26,9 @@
         <div class="flex flex-col pb-3">
           <dt class="mb-1 text-gray md:text-lg">Nombre</dt>
           <dd class="text-lg font-semibold">
-            {{ `${orderData?.mailing_address?.firstName} ${orderData?.mailing_address?.firstName}` }}
+            {{
+              `${orderData?.mailing_address?.firstName} ${orderData?.mailing_address?.firstName}`
+            }}
           </dd>
         </div>
         <div class="flex flex-col pb-3">
@@ -37,13 +39,19 @@
           <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">
             Direccion de envio
           </dt>
-          <dd class="text-lg font-semibold">{{ `${orderData?.mailing_address?.addressLine1} ${orderData?.mailing_address?.addressLine2}, ${orderData?.mailing_address?.city} ${orderData?.mailing_address?.zipCode} ${orderData?.mailing_address?.country}` }}</dd>
+          <dd class="text-lg font-semibold">
+            {{
+              `${orderData?.mailing_address?.addressLine1} ${orderData?.mailing_address?.addressLine2}, ${orderData?.mailing_address?.city} ${orderData?.mailing_address?.zipCode} ${orderData?.mailing_address?.country}`
+            }}
+          </dd>
         </div>
         <div class="flex flex-col pt-3">
           <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">
             Numero de telefono
           </dt>
-          <dd class="text-lg font-semibold">{{ orderData?.mailing_address?.mobilePhone }}</dd>
+          <dd class="text-lg font-semibold">
+            {{ orderData?.mailing_address?.mobilePhone }}
+          </dd>
         </div>
       </dl>
 
@@ -82,6 +90,10 @@
             </div>
           </div>
         </li>
+        <div class="flex justify-center gap-2">
+          <span class="font-bold text-blue-dark">Total a pagar:</span>
+          <span class="font-bold text-gray">${{ orderData.cart.totalPrice.toFixed(2) }}</span>
+        </div>
       </ul>
     </div>
     <div class="text-center pt-4 flex justify-center items-center gap-6">
@@ -95,13 +107,14 @@
       :shippingInfotmation="orderData"
       :totalToPay="orderData.cart.totalPrice"
       :orderId="orderId"
+      @toggle-payment-modal="(value) => togglePaymentModal = value"
     />
   </div>
 </template>
 <script>
 import ListElement from "../cart/ListElement.vue";
 import OutlineButton from "../buttons/OutlineButton.vue";
-import PaymentModal from "../PaymentModal.vue";
+import PaymentModal from "./PaymentModal.vue";
 import SolidButton from "../buttons/SolidButton.vue";
 import { getOrder } from "../../services/orderService.js";
 import product1 from "../../assets/db36afb84a15c111f66d1083522fbe39042389ff.png";
@@ -125,8 +138,6 @@ export default {
   },
   async mounted() {
     this.orderData = await getOrder({ orderId: this.orderId });
-
-    console.log('orderData', this.orderData)
   },
   methods: {
     goToPayment() {

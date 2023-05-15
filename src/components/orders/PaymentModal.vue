@@ -5,7 +5,7 @@
     <div
       class="bg-white-dark p-14 rounded-md drop-shadow-xl m-auto max-w-full max-h-full overflow-x-auto relative"
     >
-      <button class="absolute right-10 top-7">
+      <button class="absolute right-10 top-7" @click="$emit('toggle-payment-modal', false)">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="#3D4849"
@@ -59,7 +59,7 @@
             type="text"
             id="addressLine1"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5"
-            placeholder="Flowbite"
+            placeholder="Direction"
             v-model="billingInfo.addressLine1"
             required
           />
@@ -75,7 +75,7 @@
               type="text"
               id="city"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-xs p-1.5"
-              placeholder="Flowbite"
+              placeholder="Ciudad"
               v-model="billingInfo.city"
               required
             />
@@ -90,7 +90,7 @@
               type="number"
               id="zip-code"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-xs p-1.5"
-              placeholder="Flowbite"
+              placeholder="00000"
               v-model="billingInfo.zipCode"
               required
             />
@@ -137,7 +137,7 @@
           </div>
         </div>
       </div>
-      <div class="flex">
+      <div class="flex justify-center items-center gap-4">
         <div class="mb-6">
           <label
             for="Name-in-cart"
@@ -148,7 +148,7 @@
             type="text"
             id="name-in-cart"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Flowbite"
+            placeholder="Eliseo"
             v-model="billingInfo.firstName"
             required
           />
@@ -163,7 +163,7 @@
             type="text"
             id="name-in-cart"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Flowbite"
+            placeholder="Murillo"
             v-model="billingInfo.lastName"
             required
           />
@@ -179,7 +179,7 @@
           type="tel"
           id="phone-number"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Flowbite"
+          placeholder="25193570"
           v-model="billingInfo.mobilePhone"
           required
         />
@@ -195,7 +195,7 @@
           id="card-number"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           v-model="billingInfo.cardNumber"
-          placeholder="Flowbite"
+          placeholder="Numero de tajeta"
           required
         />
       </div>
@@ -211,7 +211,7 @@
               type="text"
               id="month-date"
               class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Flowbite"
+              placeholder="MM"
               v-model="billingInfo.expirationDate.month"
               required
             />
@@ -220,7 +220,7 @@
               id="year-date"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               v-model="billingInfo.expirationDate.year"
-              placeholder="Flowbite"
+              placeholder="AA"
               required
             />
           </div>
@@ -236,7 +236,7 @@
             id="company"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             v-model="billingInfo.cvv"
-            placeholder="Flowbite"
+            placeholder="CVV"
             required
           />
         </div>
@@ -250,10 +250,10 @@
   </div>
 </template>
 <script>
-import SolidButton from "./buttons/SolidButton.vue";
-import CloseButton from "./buttons/CloseButton.vue";
-import { createPayment } from "../services/paymentService.js";
-import Loader from "./shared/Loader.vue";
+import SolidButton from "../buttons/SolidButton.vue";
+import CloseButton from "../buttons/CloseButton.vue";
+import { createPayment } from "../../services/paymentService.js";
+import Loader from "../shared/Loader.vue";
 
 export default {
   name: "PaymentModal",

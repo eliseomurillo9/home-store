@@ -1,6 +1,5 @@
 
 export const createPayment = async (paymentInfo, orderId) => {
-    console.log(paymentInfo);
   const url = `/api/orders/${orderId}/payment`;
   const infoToJson = JSON.stringify(paymentInfo)
     const sendPayment = await fetch(url, {
@@ -12,6 +11,5 @@ export const createPayment = async (paymentInfo, orderId) => {
     })
 
     const res = await sendPayment.json()
-    console.log('RES', await res);
 return res
 };

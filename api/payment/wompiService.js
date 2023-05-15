@@ -27,7 +27,7 @@ export const getWompiToken = async () => {
     const res = await getToken.json();
     return `${res.token_type} ${res.access_token}`;
   } catch (error) {
-    console.log("error", error);
+    throw new Error(error);
   }
 };
 
