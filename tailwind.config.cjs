@@ -19,7 +19,8 @@ module.exports = {
         "gray-light": "#A1A1A1",
         black: "#101014",
         current: 'currentColor',
-        green: '#008000'
+        green: '#008000',
+        red: '#cc0000'
       },
       fontFamily: {
         inter: ["Inter", ...defaultTheme.fontFamily.sans],

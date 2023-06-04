@@ -1,9 +1,9 @@
 <template>
   <div
-    class="top-0 left-0 w-full h-full bg-black/50 z-50 m-auto fixed flex justify-center items-center p-3 drop-shadow-sm"
+    class="top-0 left-0 w-full h-full bg-black/25 z-50 m-auto fixed flex justify-center items-center p-3 drop-shadow-sm"
   >
     <div
-      class="bg-white-dark p-14 rounded-md drop-shadow-xl m-auto max-w-full max-h-full overflow-x-auto relative"
+      class="bg-white p-14 rounded-md drop-shadow-xl m-auto max-w-full max-h-full overflow-x-auto relative"
     >
       <button class="absolute right-10 top-7" @click="$emit('toggle-payment-modal', false)">
         <svg
@@ -49,6 +49,7 @@
         >
       </div>
       <div v-if="!useShippingAddress">
+        
         <div class="mb-6">
           <label
             for="addressLine1"
@@ -184,21 +185,7 @@
           required
         />
       </div>
-      <div class="mb-6">
-        <label
-          for="card-number"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Numero de tarjeta</label
-        >
-        <input
-          type="text"
-          id="card-number"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          v-model="billingInfo.cardNumber"
-          placeholder="Numero de tajeta"
-          required
-        />
-      </div>
+      <PaymentCardField />
       <div class="flex gap-4 justify-center mb-6">
         <div>
           <label
@@ -252,6 +239,8 @@
 <script>
 import SolidButton from "../buttons/SolidButton.vue";
 import CloseButton from "../buttons/CloseButton.vue";
+import PaymentCardField from "../shared/formsFields/PaymentCardField.vue";
+import
 import { createPayment } from "../../services/paymentService.js";
 import Loader from "../shared/Loader.vue";
 
@@ -278,6 +267,7 @@ export default {
   components: {
     SolidButton,
     Loader,
+    PaymentCardField
   },
   data() {
     return {

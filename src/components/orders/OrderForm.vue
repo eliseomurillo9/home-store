@@ -58,131 +58,71 @@
             >
           </div>
         </div>
-        <div class="mb-6">
-          <label
-            for="email"
-            class="block mb-1 text-sm font-medium text-gray-900"
-            >Email addressLine1</label
-          >
-          <input
-            type="email"
-            id="email"
-            class="bg-white border border-gray-light/10 drop-shadow text-gray text-sm rounded-lg focus:ring-blue-main/80 focus:border-blue-main/80 block w-full p-1.5"
-            placeholder="john.doe@company.com"
-            required
-            v-model="customerInfo.email"
-          />
-        </div>
+        <GenericField
+          :isRequired="true"
+          fieldId="email"
+          fieldLabel="e-mail"
+          fieldType="email"
+          placeholder="john.doe@email.com"
+          @field-value="(value) => this.customerInfo.email = value"
+        />
         <div class="flex gap-4 justify-center">
-          <div class="mb-6">
-            <label
-              for="first_name"
-              class="block mb-1 text-sm font-medium text-gray-900 dark:text-white"
-              >Nombres</label
-            >
-            <input
-              type="text"
-              id="first_name"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="John"
-              required
-              v-model="customerInfo.firstName"
-            />
-          </div>
-          <div>
-            <label
-              for="last_name"
-              class="block mb-1 text-sm font-medium text-gray dark:text-white"
-              >Apellidos</label
-            >
-            <input
-              type="text"
-              id="last_name"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Doe"
-              required
-              v-model="customerInfo.lastName"
-            />
-          </div>
-        </div>
-        <div class="mb-6">
-          <label
-            for="phone"
-            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white"
-            >Numero de telefono</label
-          >
-          <input
-            type="tel"
-            id="phone"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="2519-3570"
-            pattern="[0-9]{6}-[0-9]{6}"
-            required
-            v-model="customerInfo.mobilePhone"
+          <GenericField
+            fieldId="first_name"
+            fieldLabel="Nombres"
+            :isRequired="true"
+            placeholder="Miguel"
+            @field-value="(value) => this.customerInfo.firstName = value"
+          />
+          <GenericField
+            fieldId="last_name"
+            fieldLabel="Apellidos"
+            :isRequired="true"
+            placeholder="Delgado"
+            @field-value="(value) => this.customerInfo.lastName = value"
           />
         </div>
-        <div class="mb-6">
-          <label
-            for="addressLine1"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Direccion</label
-          >
-          <input
-            type="text"
-            id="addressLine1"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Direccion de domicilio"
-            required
-            v-model="customerInfo.addressLine1"
+        <GenericField
+          fieldId="phone"
+          fieldLabel="Numero de telefono"
+          fieldType="number"
+          placeholder="2519-3570"
+          @field-value="(value) => this.customerInfo.mobilePhone = value"
+        />
+        <GenericField
+          fieldId="addressLine1"
+          fieldLabel="Direccion"
+          fieldType="text"
+          placeholder="Direccion de domicilio"
+          :isRequired="true"
+          @field-value="(value) => this.customerInfo.addressLine1 = value"
+        />
+        <div class="flex gap-4 justify-center">
+          <GenericField
+            fieldId="state"
+            fieldLabel="Departamento"
+            fieldType="text"
+            placeholder="Estado"
+            :isRequired="true"
+            @field-value="(value) => this.customerInfo.state = value"
+          />
+          <GenericField
+            fieldId="city"
+            fieldLabel="Municipio"
+            fieldType="text"
+            placeholder="Ciudad"
+            :isRequired="true"
+            @field-value="(value) => this.customerInfo.city = value"
           />
         </div>
-        <div class="flex gap-4 justify-center mb-6">
-          <div>
-            <label
-              for="state"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Departamento</label
-            >
-            <input
-              type="state"
-              id="company"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Estado"
-              required
-              v-model="customerInfo.state"
-            />
-          </div>
-          <div>
-            <label
-              for="city"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Municipio</label
-            >
-            <input
-              type="city"
-              id="company"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Ciudad"
-              required
-              v-model="customerInfo.city"
-            />
-          </div>
-        </div>
-        <div class="mb-6">
-          <label
-            for="addressLine2"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Colonia</label
-          >
-          <input
-            type="text"
-            id="addressLine2"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Colonia"
-            required
-            v-model="customerInfo.addressLine2"
-          />
-        </div>
+        <GenericField
+          fieldId="addressLine2"
+          fieldLabel="Colonia"
+          fieldType="text"
+          placeholder="Colonia"
+          :isRequired="true"
+          @field-value="(value) => this.customerInfo.addressLine2 = value"
+        />
         <SolidButton
           message="Validar mi pedido"
           class="mx-auto"
@@ -217,11 +157,13 @@ import SolidButton from "../buttons/SolidButton.vue";
 import { useStore } from "@nanostores/vue";
 import { cartItems, cartInvoiceTotal } from "../../store/cartStore";
 import { createOrder, getOrder } from "../../services/orderService.js";
+import GenericField from "../shared/formsFields/GenericField.vue";
 export default {
   name: "OrderForm",
   components: {
     ListElement,
     SolidButton,
+    GenericField,
   },
   setup() {
     const getCartItems = useStore(cartItems);
@@ -262,26 +204,23 @@ export default {
   },
   methods: {
     async validateCart() {
-        try {
-          const orderCreator = await createOrder({
-            address: this.customerInfo,
-            email: this.customerInfo.email,
-            cartProducts: this.cartProducts,
-          });
-          this.errorMessage = "";
-          const existingOrders = JSON.parse(localStorage.getItem("order"));
-          if (!existingOrders) {
-            await localStorage.setItem(
-              "order",
-              JSON.stringify(orderCreator._id)
-            );
-          }
-
-          return window.location.assign("/validacion-pago");
-        } catch (error) {
-          this.errorMessage =
-            "Lo sentimos, no hemos podido validar tu cumpra, intentalo de nuevo.";
+      try {
+        const orderCreator = await createOrder({
+          address: this.customerInfo,
+          email: this.customerInfo.email,
+          cartProducts: this.cartProducts,
+        });
+        this.errorMessage = "";
+        const existingOrders = JSON.parse(localStorage.getItem("order"));
+        if (!existingOrders) {
+          await localStorage.setItem("order", JSON.stringify(orderCreator._id));
         }
+
+        return window.location.assign("/validacion-pago");
+      } catch (error) {
+        this.errorMessage =
+          "Lo sentimos, no hemos podido validar tu cumpra, intentalo de nuevo.";
+      }
     },
     async getOrderInfoforEdition() {
       if (this.orderIdFromUrl) {

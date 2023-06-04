@@ -8,9 +8,9 @@ const orderId =  new URLSearchParams(Astro.url.searchParams).get('orderId');
 const getOrderStatus = await checkTransactionStatus(orderId, idTransaction);
 if (!getOrderStatus.esAprobada) {
    return Astro.redirect(`/informacion-pago?orderId=${orderId}`);
-}
+} 
 ---
 
 <Layout title={'Confirmacion'}>
-    <OrderConfirmation client:load/>
+    <OrderConfirmation client:load orderConfirtmation={getOrderStatus.esAprobada}/>
 </Layout>

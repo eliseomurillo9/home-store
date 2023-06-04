@@ -3,23 +3,27 @@
     <div class="flex gap-3 items-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        class="h-8 text-blue-dark fill-current"
+        width="64"
+        height="64"
+        viewBox="0 0 1024 1024"
+        class="icon h-8 text-blue-dark fill-current"
       >
-        <path
-          fill="#0F1729"
-          fill-rule="evenodd"
-          d="M6.788 3c-.819 0-1.494 0-2.044.046-.571.047-1.096.149-1.588.404A4 4 0 0 0 1.45 5.156c-.255.492-.357 1.017-.404 1.588C1 7.294 1 7.969 1 8.788V15a4.001 4.001 0 0 0 3.14 3.907A3.001 3.001 0 0 0 9.83 19h5.34a3.001 3.001 0 0 0 5.74-.265 3.002 3.002 0 0 0 1.73-3.184l-.14-.922a16 16 0 0 0-2.6-6.616l-.18-.266A4 4 0 0 0 16.414 6H15c-.05 0-.1.002-.15.006a3.379 3.379 0 0 0-.3-.85 4 4 0 0 0-1.706-1.706c-.492-.255-1.017-.357-1.588-.404C10.706 3 10.03 3 9.212 3H6.788ZM15 8.716V17h.17a3.001 3.001 0 0 1 5.398-.552.994.994 0 0 0 .095-.598l-.14-.921a14 14 0 0 0-2.275-5.79l-.181-.266A2 2 0 0 0 16.415 8H15v.716Zm-2 .114c0-.871 0-1.463-.039-1.92-.037-.446-.104-.673-.186-.832a2 2 0 0 0-.853-.853c-.159-.082-.386-.15-.832-.186C10.633 5 10.042 5 9.17 5H6.83c-.871 0-1.463 0-1.92.039-.446.037-.673.104-.832.186a2 2 0 0 0-.853.853c-.082.159-.15.386-.186.831C3 7.367 3 7.96 3 8.83V15a2 2 0 0 0 1.23 1.846 3 3 0 0 1 5.6.154H13V8.83ZM8 18a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm9 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"
-          clip-rule="evenodd"
-        />
+        <g>
+          <path
+            d="M959.018 208.158c.23-2.721.34-5.45.34-8.172 0-74.93-60.96-135.89-135.89-135.89-1.54 0-3.036.06-6.522.213l-611.757-.043c-1.768-.085-3.563-.17-5.424-.17-74.812 0-135.67 60.84-135.67 135.712l.188 10.952h-.306l.391 594.972-.162 20.382c0 74.03 60.22 134.25 134.24 134.25 1.668 0 7.007-.239 7.1-.239l608.934.085c2.985.357 6.216.468 9.55.468 35.815 0 69.514-13.954 94.879-39.302 25.373-25.34 39.344-58.987 39.344-94.794l-.145-12.015h.918l-.008-606.41zm-757.655 693.82-2.585-.203c-42.524 0-76.146-34.863-76.537-79.309V332.671H900.79l.46 485.186-.885 2.865c-.535 1.837-.8 3.58-.8 5.17 0 40.382-31.555 73.766-71.852 76.002l-10.816.621v-.527l-615.533-.01zM900.78 274.424H122.3l-.375-65.934.85-2.924c.52-1.82.782-3.63.782-5.247 0-42.236 34.727-76.665 78.179-76.809l.45-.068 618.177.018 2.662.203c42.329 0 76.767 34.439 76.767 76.768 0 1.326.196 2.687.655 4.532l.332.884v68.577z"
+          />
+          <path
+            d="M697.67 471.435c-7.882 0-15.314 3.078-20.918 8.682l-223.43 223.439L346.599 596.84c-5.544-5.603-12.95-8.69-20.842-8.69s-15.323 3.078-20.918 8.665c-5.578 5.518-8.674 12.9-8.7 20.79-.017 7.908 3.07 15.357 8.69 20.994l127.55 127.558c5.57 5.56 13.01 8.622 20.943 8.622 7.925 0 15.364-3.06 20.934-8.63l244.247-244.247c5.578-5.511 8.674-12.883 8.7-20.783.017-7.942-3.079-15.408-8.682-20.986-5.552-5.612-12.958-8.698-20.85-8.698z"
+          />
+        </g>
       </svg>
       <h2 class="text-blue-dark text-xl md:text-3xl font-bold">
         Validacion de compra
       </h2>
     </div>
-    <div class="text-white-dark"></div>
+    <div class="h-px bg-gray-light mt-1"></div>
     <div
-      class="flex gap-10 justify-center bg-white-dark rounded drop-shadow p-5 m-auto"
+      class="flex gap-10 justify-center bg-white-dark rounded drop-shadow px-5 py-10 m-auto mt-10"
       v-if="orderData"
     >
       <dl class="w-full max-w-xl text-gray divide-y divide-gray-light">
@@ -32,7 +36,7 @@
           </dd>
         </div>
         <div class="flex flex-col pb-3">
-          <dt class="mb-1 text-gray md:text-lg">Email</dt>
+          <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Email</dt>
           <dd class="text-lg font-semibold">{{ orderData?.user_email }}</dd>
         </div>
         <div class="flex flex-col py-3">
@@ -92,7 +96,9 @@
         </li>
         <div class="flex justify-center gap-2">
           <span class="font-bold text-blue-dark">Total a pagar:</span>
-          <span class="font-bold text-gray">${{ orderData.cart.totalPrice.toFixed(2) }}</span>
+          <span class="font-bold text-gray"
+            >${{ orderData.cart.totalPrice.toFixed(2) }}</span
+          >
         </div>
       </ul>
     </div>
@@ -107,7 +113,7 @@
       :shippingInfotmation="orderData"
       :totalToPay="orderData.cart.totalPrice"
       :orderId="orderId"
-      @toggle-payment-modal="(value) => togglePaymentModal = value"
+      @toggle-payment-modal="(value) => (togglePaymentModal = value)"
     />
   </div>
 </template>
@@ -128,6 +134,10 @@ export default {
       type: Array,
       default: [],
     },
+    orderConfirtmation: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -138,6 +148,10 @@ export default {
   },
   async mounted() {
     this.orderData = await getOrder({ orderId: this.orderId });
+    if (this.orderConfirtmation) {
+      localStorage.removeItem("cart");
+      localStorage.removeItem("order");
+    }
   },
   methods: {
     goToPayment() {
