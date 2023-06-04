@@ -240,7 +240,6 @@
 import SolidButton from "../buttons/SolidButton.vue";
 import CloseButton from "../buttons/CloseButton.vue";
 import PaymentCardField from "../shared/formsFields/PaymentCardField.vue";
-import
 import { createPayment } from "../../services/paymentService.js";
 import Loader from "../shared/Loader.vue";
 
