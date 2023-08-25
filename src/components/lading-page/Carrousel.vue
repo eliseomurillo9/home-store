@@ -1,5 +1,5 @@
 <template>
-  <div id="default-carousel" class="relative w-full z-0" data-carousel="slide">
+  <div id="default-carousel" class="relative w-full z-0 mx-4" data-carousel="slide">
     <!-- Carousel wrapper -->
     <div class="relative h-56 overflow-hidden md:h-96 lg:h-128">
       <!-- Item 1 -->

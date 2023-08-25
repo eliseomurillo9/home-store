@@ -3,9 +3,12 @@
     class="top-0 left-0 w-full h-full bg-black/25 z-50 m-auto fixed flex justify-center items-center p-3 drop-shadow-sm"
   >
     <div
-      class="bg-white p-14 rounded-md drop-shadow-xl m-auto max-w-full max-h-full overflow-x-auto relative"
+      class="bg-[#FBFBFB] p-14 rounded-md drop-shadow-xl m-auto max-w-full max-h-full overflow-x-auto relative"
     >
-      <button class="absolute right-10 top-7" @click="$emit('toggle-payment-modal', false)">
+      <button
+        class="absolute right-10 top-7"
+        @click="$emit('toggle-payment-modal', false)"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="#3D4849"
@@ -49,74 +52,46 @@
         >
       </div>
       <div v-if="!useShippingAddress">
-        
-        <div class="mb-6">
-          <label
-            for="addressLine1"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Direccion</label
-          >
-          <input
-            type="text"
-            id="addressLine1"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5"
-            placeholder="Direction"
-            v-model="billingInfo.addressLine1"
-            required
+        <GenericField
+          :isRequired="true"
+          fieldId="addressLine1"
+          fieldLabel="Direccion"
+          fieldType="text"
+          placeholder="Calle Loma linda, pol-4"
+          @field-value="(value) => (this.billingInfo.addressLine1 = value)"
+        />
+        <div class="flex justify-center gap-3 w-full">
+          <GenericField
+            :isRequired="true"
+            fieldId="city"
+            fieldLabel="Ciudad"
+            fieldType="city"
+            placeholder="San Salvador"
+            @field-value="(value) => (this.billingInfo.city = value)"
+            class="w-3/4"
+          />
+          <GenericField
+            :isRequired="true"
+            fieldId="zip-code"
+            fieldLabel="Codigo postal"
+            fieldType="number"
+            placeholder="59170"
+            @field-value="(value) => (this.billingInfo.zipCode = value)"
+            class="w-1/4"
           />
         </div>
-        <div class="flex justify-center gap-3">
-          <div class="mb-6">
-            <label
-              for="city"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Ciudad</label
-            >
-            <input
-              type="text"
-              id="city"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-xs p-1.5"
-              placeholder="Ciudad"
-              v-model="billingInfo.city"
-              required
-            />
-          </div>
-          <div class="mb-6">
-            <label
-              for="zip-code"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Codigo postal</label
-            >
-            <input
-              type="number"
-              id="zip-code"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full max-w-xs p-1.5"
-              placeholder="00000"
-              v-model="billingInfo.zipCode"
-              required
-            />
-          </div>
-        </div>
         <div class="flex gap-4 justify-center">
-          <div class="flex flex-col mb-6 w-2/4">
-            <label for="country-select">Pais</label>
-            <select
-              name="country"
-              id="country-select"
-              v-model="billingInfo.country"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-1.5"
-            >
-              <option value="">Selecciona el pais</option>
-              <option
-                v-for="(country, i) in regionFieldValues"
-                :key="country.id"
-                :value="country.id"
-              >
-                {{ country.nombre }}
-              </option>
-            </select>
-          </div>
-          <div class="flex flex-col mb-6 w-2/4">
+          <DropdownField
+            :isRequired="true"
+            fieldId="country"
+            fieldLabel="Pais"
+            fieldType="text"
+            placeholder="Selecciona el pais"
+            class="w-2/4"
+            :fieldOption="regionFieldValues"
+            @field-value="(value) => (this.billingInfo.country = value)"
+          />
+          <!-- <div class="flex flex-col mb-6 w-full">
             <label for="state-select">Departamento</label>
             <select
               name="state"
@@ -135,98 +110,73 @@
                 {{ state?.nombre }}
               </option>
             </select>
-          </div>
+          </div> -->
         </div>
       </div>
-      <div class="flex justify-center items-center gap-4">
-        <div class="mb-6">
-          <label
-            for="Name-in-cart"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Nombre</label
-          >
-          <input
-            type="text"
-            id="name-in-cart"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Eliseo"
-            v-model="billingInfo.firstName"
-            required
-          />
-        </div>
-        <div class="mb-6">
-          <label
-            for="Name-in-cart"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Apellido</label
-          >
-          <input
-            type="text"
-            id="name-in-cart"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Murillo"
-            v-model="billingInfo.lastName"
-            required
-          />
-        </div>
+      <div class="flex justify-center gap-3 w-full">
+        <GenericField
+          :isRequired="true"
+          fieldId="name"
+          fieldLabel="Nombres"
+          fieldType="text"
+          placeholder="Miguel"
+          @field-value="(value) => (this.billingInfo.firstName = value)"
+          class="w-2/4"
+        />
+        <GenericField
+          :isRequired="true"
+          fieldId="lastName"
+          fieldLabel="Apellido"
+          fieldType="text"
+          placeholder="Rogriguez"
+          @field-value="(value) => (this.billingInfo.lastName = value)"
+          class="w-2/4"
+        />
       </div>
       <div class="mb-6">
-        <label
-          for="phone-number"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Numero de telefono</label
-        >
-        <input
-          type="tel"
-          id="phone-number"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="25193570"
-          v-model="billingInfo.mobilePhone"
-          required
+        <GenericField
+          :isRequired="true"
+          fieldId="phone-number"
+          fieldLabel="Numero de telefono"
+          fieldType="tel"
+          placeholder="2519-3570"
+          @field-value="(value) => (this.billingInfo.mobilePhone = value)"
+          class="w-2/4 mx-auto"
         />
       </div>
       <PaymentCardField />
       <div class="flex gap-4 justify-center mb-6">
-        <div>
-          <label
-            for="expiratio-date"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Fecha de expiracion</label
-          >
-          <div class="flex gap-3">
-            <input
-              type="text"
-              id="month-date"
-              class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="MM"
-              v-model="billingInfo.expirationDate.month"
-              required
-            />
-            <input
-              type="text"
-              id="year-date"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              v-model="billingInfo.expirationDate.year"
-              placeholder="AA"
-              required
-            />
-          </div>
-        </div>
-        <div>
-          <label
-            for="cvv"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >CVV</label
-          >
-          <input
-            type="cvv"
-            id="company"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            v-model="billingInfo.cvv"
-            placeholder="CVV"
-            required
-          />
-        </div>
+        <GenericField
+          :isRequired="true"
+          fieldId="month-expiration-date"
+          fieldType="number"
+          regexValidator="[0-9]*"
+          placeholder="MM"
+          @field-value="
+            (value) => (this.billingInfo.expiratioDate.month = value)
+          "
+          class="w-11"
+        />
+        <GenericField
+          :isRequired="true"
+          fieldId="year-expiration-date"
+          fieldType="number"
+          regexValidator="[0-9]*"
+          placeholder="AA"
+          @field-value="
+            (value) => (this.billingInfo.expiratioDate.year = value)
+          "
+          class="w-11"
+        />
+        <GenericField
+          :isRequired="true"
+          fieldId="credit-card-cvv"
+          fieldType="credit-card-cvv"
+          fieldLabel="CVV"
+          placeholder="CVV"
+          @field-value="(value) => (this.billingInfo.expiratioDate.cvv = value)"
+          class="w-14"
+        />
       </div>
       <SolidButton
         :message="`Pagar ($${totalToPay})`"
@@ -240,6 +190,8 @@
 import SolidButton from "../buttons/SolidButton.vue";
 import CloseButton from "../buttons/CloseButton.vue";
 import PaymentCardField from "../shared/formsFields/PaymentCardField.vue";
+import GenericField from "../shared/formsFields/GenericField.vue";
+import DropdownField from "../shared/formsFields/DropdownField.vue";
 import { createPayment } from "../../services/paymentService.js";
 import Loader from "../shared/Loader.vue";
 
@@ -261,12 +213,14 @@ export default {
     orderId: {
       type: String,
       required: true,
-    }
+    },
   },
   components: {
     SolidButton,
     Loader,
-    PaymentCardField
+    PaymentCardField,
+    GenericField,
+    DropdownField,
   },
   data() {
     return {
@@ -279,7 +233,7 @@ export default {
         state: "",
         city: "",
         addressLine2: "",
-        zipCode: '',
+        zipCode: "",
         email: this.shippingInfotmation.user_email,
         cardNumber: "",
         expirationDate: {
