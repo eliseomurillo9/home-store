@@ -1,13 +1,12 @@
 <template>
-  <div v-for="item in productList" :key="item.id">
-    <Card
-    class="mx-auto"
-      :product="item"
-      :isAddedToCart="
-        Object.values(getCartProducts).find((product) => product._id === item._id)
-      "
-    />
-  </div>
+  <Card
+    v-for="item in productList"
+    :key="item.id"
+    :product="item"
+    :isAddedToCart="
+      Object.values(getCartProducts).find((product) => product._id === item._id)
+    "
+  />
 </template>
 
 <script>

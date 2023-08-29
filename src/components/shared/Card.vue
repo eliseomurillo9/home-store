@@ -1,19 +1,19 @@
 <template>
-  <div class="bg-white shadow-xl rounded-xl w-full max-w-176">
+  <div class="bg-white shadow-xl rounded-xl w-full max-w-fit transform transition-transform duration-300 ease-in-out hover:scale-105">
     <figure>
       <img
-        :src="product.img"
-        :alt="product.name"
-        class="object-contain h-full max-h-44 rounded"
+        :src="productInfo.img"
+        :alt="productInfo.name"
+        class="object-contain h-full max-h-64 w-64 rounded-t"
       />
     </figure>
     <div class="p-4">
       <h2 class="text-xs md:text-base font-semibold text-start text-gray">
-        {{ product.name }}
+        {{ productInfo.name }}
       </h2>
-      <div class="flex justify-between mt-5">
+      <div class="flex justify-between gap-8 mt-5">
         <p class="text-xl font-bold text-blue-main">
-          ${{ product.price.toFixed(2) }}
+          ${{ productInfo.price.toFixed(2) }}
         </p>
         <button v-if="isAddedToCart">
           <svg
@@ -62,7 +62,7 @@
             />
           </svg>
         </button>
-        <button @click="addToCart(product)" v-else>
+        <button @click="addToCart(productInfo)" v-else>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="64"
@@ -109,27 +109,27 @@
     </div>
   </div>
 </template>
-<script>
-import OutlineButton from "../buttons/OutlineButton.vue";
-import { addCartItem } from "../../store/cartStore";
+<script setup>
+import { addCartItem, cartItems } from "../../store/cartStore";
+import { useStore } from "@nanostores/vue";
+import { defineProps, computed, onMounted } from "vue";
 
-export default {
-  name: "Card",
-  components: { OutlineButton },
-  props: {
-    product: {
-      type: Object,
-      required: true,
-    },
-    isAddedToCart: {
-      type: Boolean,
-      default: false,
-    },
+const props = defineProps({
+  productInfo: {
+    type: Object,
+    required: true,
   },
-  methods: {
-    addToCart(product) {
+});
+
+onMounted(() => {
+  console.log(isAddedToCart);
+});
+const getCartProducts = useStore(cartItems);
+const isAddedToCart = computed(() => {
+  return Object.values(getCartProducts).find((product) => product?._id === props.productInfo?._id);
+});
+
+ function addToCart(product) {
       addCartItem(product);
-    },
-  },
 };
 </script>

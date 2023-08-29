@@ -4,7 +4,7 @@ import Carrousel from "../components/lading-page/Carrousel.vue";
 import Poster from "../components/shared/Poster.vue";
 import SolidButton from "../components/buttons/SolidButton.vue";
 import CategoryCard from "../components/shared/CategoryCard.vue";
-import CardsContainer from "../components/shared/CardsContainer.vue";
+import Card from "../components/shared/Card.vue";
 
 const getCarrouselImage = await fetch(
   "http://localhost:5000/api/admin/cms/CARROUSEL"
@@ -54,12 +54,18 @@ const categoriesCards = await getCategoriesCards.json();
       </div>
     </section>
     <div class="h-px bg-gray-light my-9"></div>
-    <section class="px-4 pt-2">
-      <h2 class="text-center text-xl font-semibold text-gray mb-4">
-        {productsCards.title}
-      </h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 justify-between pt-2">
-        <CardsContainer productList={productsCards.products} client:load />
+    <section class="px-4 pt-2 flex justify-center">
+      <div class=" overflow-hidden">
+        <h2 class="text-center text-xl font-semibold text-gray mb-4">
+          {productsCards.title}
+        </h2>
+        <div class="flex gap-5 transition-transform duration-300 ease-in-out -translate-x-full hover:translate-x-0 md:justify-center">
+          {
+            productsCards.products.map((product) => 
+              <Card productInfo={product} client:load />
+            )
+          }
+        </div>
       </div>
     </section>
     <div class="h-px bg-gray-light my-9"></div>

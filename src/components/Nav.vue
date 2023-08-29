@@ -68,15 +68,12 @@
     </div>
     <div class="h-px bg-gray-light"></div>
     <div class="flex justify-between py-1.5 px-6">
-      <div class="flex gap-6">
-        <a
-          v-for="(category, index) of categories"
-          href=""
-          class="font-semibold text-gray hover:text-blue-main transition ease-in-out text-sm"
-        >
-          {{ category.name }}</a
-        >
-      </div>
+      <button
+        class="flex items-center gap-1 hover:border-b-2 border-blue-400 ease-in-out cursor-pointer" :class="[{'border-b-2': isCategoryMenuOpen, 'border-b-0': isCategoryMenuOpen}]" @click="toggleMenu"
+      >
+        <MenuButton />
+        <span class="font-medium text-gray">Productos</span>
+      </button>
       <div class="flex gap-4 justify-center items-center">
         <a href="">
           <svg
@@ -91,7 +88,9 @@
           </svg>
         </a>
         <a href="/carrito" class="relative">
-          <h2 class="absolute bg-blue-main rounded-full text-2xs px-0.5">{{ Object.values($cartItems).length}}</h2>
+          <h2 class="absolute bg-blue-main rounded-full text-2xs px-0.5">
+            {{ Object.values($cartItems).length }}
+          </h2>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -101,57 +100,81 @@
             <path
               d="M2 2a1 1 0 0 0 0 2h.472a1 1 0 0 1 .965.737l.416 1.526L6 14.133V16c0 .694.235 1.332.63 1.84A2.5 2.5 0 1 0 10.95 19h3.1a2.5 2.5 0 1 0 4.771-.43A1 1 0 0 0 18 17H9.001a1 1 0 0 1-1-1v-1h10.236a2 2 0 0 0 1.93-1.474l1.635-6A2 2 0 0 0 19.87 5H5.582l-.215-.79A3 3 0 0 0 2.472 2H2Zm14.5 17a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1Zm1.736-6H7.764L6.127 7h13.744l-1.635 6ZM8.5 19a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1Z"
               clip-rule="evenodd"
-              fill-rule=”evenodd”
+              fill-rule="”evenodd”"
             />
           </svg>
         </a>
       </div>
     </div>
   </div>
+  <div class="flex gap-6 bg-white mx-2 w-2/4 rounded-b border-t-1 border-blue" v-if="isCategoryMenuOpen" @mouseleave="toggleMenu" tabindex="0">
+    <div class="flex flex-col p-2">
+      <div
+        v-for="(category, index) of categoriesList"
+        :key="index"
+        @mouseover="selectedCategory(category)"
+        class="font-semibold text-gray text-sm py-3 pr-2 pl-3 border-y border-y-gray/10 hover:border-y-gray/25 hover:border-l-2 border-l-blue-400 transition ease-in-out cursor-pointer"
+      >
+        {{ category.category }}</div
+      >
+    </div>
+    <div class="flex flex-col mt-2 py-2">
+      <a :href="selectCategory" class="underline text-sm text-gray hover:text-black ease-in-out">
+        Ver todos
+      </a>
+      <a v-if="selectCategory === ''" href="">{{ categoriesList[0].category }}</a>
+      <a v-else :href="selectCategory.subcategory " class="text-gray hover:text-black hover:underline">
+        {{ selectCategory.subcategory }}
+      </a>
+    </div>
+  </div>
 </template>
-<script>
-import logo from "../assets/home-store-black-200.png";
-import socialNetworks from "../store/social";
-import { useStore } from "@nanostores/vue";
-import { getCart } from '../store/cartStore';
-
-
-
-export default {
-  name: "Nav",
-  props: {
-    headerMessage: {
-      type: String,
-      default: "Change me",
-    },
-    logoImg: {
-      type: String,
-      default: logo,
-    },
-    phoneNumber: {
-      type: String,
-      default: "",
-    },
-    categories: {
-      type: Array,
-      default: [],
-    },
-  },
-  computed: {
-    socialInformation() {
-      return useStore(socialNetworks).value;
-    },
-  },
- async mounted() {
-    await getCart()
-  },
-};
-</script>
 
 <script setup>
+import logo from "../assets/home-store-black-200.png";
+import socialNetworks from "../store/social";
+import MenuButton from "./buttons/MenuButton.vue";
 import { useStore } from "@nanostores/vue";
-import { cartItems } from '../store/cartStore';
-
+import { getCart } from "../store/cartStore";
+import { defineProps, computed, onMounted, ref } from "vue";
+import { cartItems } from "../store/cartStore";
+import categories from "../store/categories";
 const $cartItems = useStore(cartItems);
 
+const props = defineProps({
+  headerMessage: {
+    type: String,
+    default: "Change me",
+  },
+  logoImg: {
+    type: String,
+    default: logo,
+  },
+  phoneNumber: {
+    type: String,
+    default: "",
+  },
+});
+
+const socialInformation = computed(() => {
+  return useStore(socialNetworks).value;
+});
+
+const categoriesList = computed(() => {
+  return useStore(categories).value;
+});
+const isCategoryMenuOpen = ref(false);
+const selectCategory = ref('');
+
+function toggleMenu() {
+  console.log('open')
+isCategoryMenuOpen.value = !isCategoryMenuOpen.value
+};
+
+function selectedCategory(cat) {
+  selectCategory.value = cat;
+}
+onMounted(() => {
+  getCart();
+});
 </script>
